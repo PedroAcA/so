@@ -1,0 +1,12 @@
+Nessa primeira versao (a qual nao le arquivos files.txt), execute os seguinte comando no terminal a partir desta pasta:
+
+	->Para gerar o executavel: make so OU make
+
+	->Para executar apos ter gerado o executavel no passo acima:
+		1-Caso queira abir o arquivo processes.txt descrito na especificacao: 
+			./so processses.txt
+	
+		2-Caso queira abir um arquivo  que segue o padrao de processes.txt descrito na especificacao:
+			./so caminho_ate_o_arquivo_txt
+	
+

@@ -1,0 +1,32 @@
+Arquivos Pseudo-SO:
+	-> Informacoes de cada linha do arquivo de processos (informacoes separardas por virgula):
+		- tempo de inicialização (int)
+		- prioridade (int)
+		- tempo de processador
+		- blocos em memória (int)
+		- número-código da impressora requisitada (bool)
+		- requisição do scanner (bool)
+		- requisição do modem (bool)
+		- número-código do disco
+	
+	-> Campos do arquivo de organizcao do disco:
+		- quantidade total de blocos no disco
+		- quantidade de segmentos ocupados
+		- identificação de quais arquivos já estão gravados no disco
+		- localização dos blocos usados por cada arquivo
+		- identificação de qual processo efetuará cada operação
+		- identificação das operações (0 para criar e 1 para deletar um arquivo)
+			-Para as operacoes de criacao:
+				-o nome (indicado por uma letra) do arquivo a ser criado
+				-a quantidade de blocos ocupada pelo arquivo
+			-Para deletar um arquivo:
+				-nome (indicado por uma letra) do arquivo a ser deletado
+	
+	-> Estrutura de cada linha do arquivo de organizacao do disco:
+		- quantidade total de blocos no disco
+		- quantidade de segmentos ocupados (n)
+		- nome do arquivo, número do primeiro bloco gravado, quantidade de blocos ocupados por este arquivo (da linha 3)
+		- nome do arquivo, número do primeiro bloco gravado, quantidade de blocos ocupados por este arquivo (ate a linha n+2)	
+		- ID_Processo,Código_Operação,Nome_arquivo, se_operacaoCriar_numero_bloco                		   
+	
+		

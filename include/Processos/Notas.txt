@@ -1,0 +1,1 @@
+Modulo de cabecalhos (headers) que definem os dados de um processo e os metodos de acesso/manipulacao desses dados
