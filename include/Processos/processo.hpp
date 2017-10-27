@@ -9,6 +9,7 @@ private:
 	int tempo_inicializacao, tempo_processador;
 	int prioridade;
 	int blocos_em_memoria;
+	int inicio;
 	bool requisicao_impressora,requisicao_scanner,requisicao_modem;
 	int codigo_disco;
 	//Fim da definicao da estrutura contida no arquivo processes.txt
@@ -33,6 +34,7 @@ public:
 	void set_requisicoes(bool,bool,bool);//requisicoes de impressora,scanner e modem respectivamente
 	void set_prioridade(int);
 	void set_blocos_memoria(int);
+	void set_inicio(int);
 	void set_codigo_disco(int);
 	//Fim da declaracao dos setters
 
@@ -44,6 +46,7 @@ public:
 	bool get_requisicao_modem();
 	int get_prioridade();
 	int get_blocos_memoria();
+	int get_inicio();
 	int get_codigo_disco();
 	//Fim da declaracao dos getters
 	void imprime_infomacoes_processo(int);//sera passado a ele o PID
