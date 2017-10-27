@@ -20,6 +20,9 @@
 	void processo::set_blocos_memoria(int blocos_memoria){
 		this->blocos_em_memoria = blocos_memoria;
 	}
+	void processo::set_inicio(int inicio){
+		this->inicio = inicio;
+	}
 	void processo::set_codigo_disco(int codigo_disco){
 		this->codigo_disco = codigo_disco;
 	}
@@ -46,6 +49,9 @@
 	}
 	int processo::get_blocos_memoria(){
 		return this->blocos_em_memoria;
+	}
+	int processo::get_inicio(){
+		return this->inicio;
 	}
 	int processo::get_codigo_disco(){
 		return this->codigo_disco;
