@@ -2,6 +2,7 @@
 #include "../include/arquivos.hpp"
 #include "../include/Processos/processo.hpp"
 #include "../include/modulo_filas.hpp"
+#include "../include/Memoria.hpp"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,6 +14,7 @@ http://www.cplusplus.com/reference/deque/deque/
 **/
 
 int main(int argc, char* argv[]){
+	Memoria::inicializa_memoria();
 	arquivos leitor_arquivos;
 	leitor_arquivos.le_arquivos(argc,argv);
 	/**
