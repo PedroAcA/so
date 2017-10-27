@@ -10,7 +10,7 @@
 #define INICIO_USUARIO 64
 #define FIM_USUARIO 1023
 
-#include "SO/processo.hpp"
+#include "Processos/processo.hpp"
 
 bool memoria[1024];
 
