@@ -12,7 +12,7 @@
 
 #include "Processos/processo.hpp"
 
-bool memoria[1024];
+bool memoria_ram[1024];
 
 class Memoria{
 
