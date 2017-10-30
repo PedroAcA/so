@@ -130,3 +130,10 @@
 			this->lista_processos[i].imprime_infomacoes_processo(i+1);	
 		}
 	}
+	void arquivos::libera_lista_processos(){
+		std::cout<<"Liberando lista de aqruivos!"<<std::endl;
+		if(!this->lista_processos.empty()){
+			this->lista_processos.clear();
+		}
+		std::cout<<"Lista de aqruivos liberada!"<<std::endl;
+	}

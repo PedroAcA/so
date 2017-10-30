@@ -32,5 +32,6 @@ int main(int argc, char* argv[]){
 	escalonador.insereFilas(leitor_arquivos);
 	escalonador.algoritmoEscalonamento(leitor_arquivos);
 	escalonador.destroiFilas();
+	leitor_arquivos.libera_lista_processos();
 	return 0;
 }

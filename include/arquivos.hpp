@@ -16,7 +16,7 @@ class arquivos{
 public://klista de processos e informacoes do disco deverao ser publicas
 //para que outros modulos do SO possam acessar esssa informacao 
 	std::vector<processo> lista_processos;
-	//FILE *arq_processos,*arq_disco;// ponteiros que contem os arquivos abertos
+
 //Fim da definicao das variaveis da classe
 
 //Inicio da definicao dos metodos da classe
@@ -31,6 +31,7 @@ public:
 	//leitura de files.txt)
 	void le_arquivos(int,char**);//argumentos argc e argv da main
 	void imprime_informacoes_processos();
+	void libera_lista_processos();
 //Fim da definicao dos metodos da classe	
 };
 #endif
