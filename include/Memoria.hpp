@@ -12,7 +12,6 @@
 
 #include "Processos/processo.hpp"
 
-bool memoria_ram[1024];
 
 class Memoria{
 

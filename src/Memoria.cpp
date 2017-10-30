@@ -1,6 +1,8 @@
 //Classe para implemetar os metodos definidos em Memoria.hpp
 #include "../include/Memoria.hpp"
 
+bool memoria_ram[1024];
+
 bool Memoria::aloca_usuario (processo *p, int i){
 
     //procura um espaço livre na memoria
