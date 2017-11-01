@@ -14,7 +14,14 @@ public:
 	std::deque<int> Fila3;
 	filas();
 	void insereFilas(arquivos);
-	void algoritmoEscalonamento(arquivos);
+	int existe_processo_para_executar_fila0(arquivos, int);
+	int existe_processo_para_executar_fila1(arquivos, int);
+	int existe_processo_para_executar_fila2(arquivos, int);
+	int existe_processo_para_executar_fila3(arquivos, int);
+	void retira_processo_fila0(int);
+	void retira_processo_fila1(int);
+	void retira_processo_fila2(int);
+	void retira_processo_fila3(int);
 	void destroiFilas(void);
 };
 #endif

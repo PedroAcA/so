@@ -2,6 +2,7 @@
 #include "../include/arquivos.hpp"
 #include "../include/Processos/processo.hpp"
 #include "../include/modulo_filas.hpp"
+#include "../include/escalonamento.hpp"
 #include "../include/Memoria.hpp"
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,8 +15,11 @@ http://www.cplusplus.com/reference/deque/deque/
 **/
 
 int main(int argc, char* argv[]){
-	Memoria::inicializa_memoria();
+	//Memoria::inicializa_memoria();
 	arquivos leitor_arquivos;
+	filas processos; 
+	escalonador gerenciamento_de_processos;
+	Memoria memoria_principal;
 	leitor_arquivos.le_arquivos(argc,argv);
 	/**
 	//Laco for abaixo eh uma das maneiras de se acessar a lista de processos
@@ -28,10 +32,10 @@ int main(int argc, char* argv[]){
 		leitor_arquivos.lista_processos[i].imprime_infomacoes_processo(i+1);	
 	}
 	**/
-	filas escalonador; 
-	escalonador.insereFilas(leitor_arquivos);
-	escalonador.algoritmoEscalonamento(leitor_arquivos);
-	escalonador.destroiFilas();
+	memoria_principal.inicializa_memoria();
+	processos.insereFilas(leitor_arquivos);
+	gerenciamento_de_processos.algoritmoEscalonamento(leitor_arquivos, processos);
+	processos.destroiFilas();
 	leitor_arquivos.libera_lista_processos();
 	return 0;
 }
