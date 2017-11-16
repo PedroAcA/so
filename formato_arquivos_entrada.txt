@@ -27,6 +27,6 @@ Arquivos Pseudo-SO:
 		- quantidade de segmentos ocupados (n)
 		- nome do arquivo, número do primeiro bloco gravado, quantidade de blocos ocupados por este arquivo (da linha 3)
 		- nome do arquivo, número do primeiro bloco gravado, quantidade de blocos ocupados por este arquivo (ate a linha n+2)	
-		- ID_Processo,Código_Operação,Nome_arquivo, se_operacaoCriar_numero_bloco                		   
+		- ID_Processo,Código_Operação,Nome_arquivo, se_operacaoCriar_numero_blocos                		   
 	
 		
