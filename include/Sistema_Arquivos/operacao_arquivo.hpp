@@ -31,7 +31,17 @@ public:
 	*informacoes sobre operacoes a serem realizadas com um arquivo  
 	**/
 	void insere_informacoes_lidas(char*);
+	/**
+	*	Metodo para imprimir os valores atuais das variaveis desta classe
+	**/
 	void imprime_infos_operacao();
+
+	//Inicio da definicao dos getters
+	int get_pid();
+	bool desja_criar();//vai indiicar se a operacao eh criar arquivo
+	int get_numero_blocos();
+	char get_nome_arquivo();
+	//Fim da definicao dos getters
 //Fim da definicao dos metodos da classe
 };
 

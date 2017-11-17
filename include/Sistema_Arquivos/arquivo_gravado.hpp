@@ -14,6 +14,12 @@ private:
 	int blocos_ocupados;//quantidade de blocos ocupados por este arquiv
 //Fim da definicao da estrutura com informacoes de blocos gravados
 
+//pid_criador armazena do pid do processo criador para que seja possivel
+//saber se um processo de usuario que quer deletar o arquivo realmente o criou
+//pid_criador valido somente para arquivos que nao estao originalmente em
+//files.txt. Se estiver, pi_criador = -1 (para que somente processos de
+//tempo real possam exculir)
+		int pid_criador;
 public:
 	arquivo_gravado();//construtor padrao (default)
 //Inicio da definicao dos metodos da classe
@@ -26,7 +32,20 @@ public:
 	*informacoes sobre arquivos e blocos gravados no disco  
 	**/
 	void insere_informacoes_lidas(char*);
+	/**
+	*	Metodo para imprimir os valores atuais das variaveis desta classe
+	**/
 	void imprime_infos_arquivo();
+	//Inicio da definicao dos setters
+	void set_nome_arquivo(char);
+	void set_pid_criador(int);
+	//Fim da definicao dos setters
+
+	//Inicio da definicao dos getters
+	int get_num_primeiro_bloco();
+	int get_blocos_ocupados();
+	char get_nome_arquivo();
+	//Fim da definicao dos getters
 
 //Fim da definicao dos metodos da classe
 

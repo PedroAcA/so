@@ -33,6 +33,22 @@ void operacao_arquivo::insere_informacoes_lidas(char* informacao_operacao){
 		printf("Arquivo do tipo 'files.txt' sem PID do processo que vai realizar operacao!\n");
 	}
 }
+
+int operacao_arquivo::get_pid(){
+	return this->pid;
+}
+
+bool operacao_arquivo::desja_criar(){//vai indiicar se a operacao eh criar arquivo
+	return (this->codigo_operacao==criar_arquivo);
+}
+int operacao_arquivo::get_numero_blocos(){
+	return this->numero_blocos;
+}
+
+char operacao_arquivo::get_nome_arquivo(){
+	return this->nome_arquivo;
+}
+
 void operacao_arquivo::imprime_infos_operacao(){
 	printf("\n");
 	printf("PID do processo que vai fazer operacao: %d \n",this->pid );
