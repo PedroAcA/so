@@ -37,13 +37,19 @@ public:
 	**/
 	void imprime_infos_arquivo();
 	//Inicio da definicao dos setters
-	void set_nome_arquivo(char);
+
+	//setters usados para mapear quais processos criaram quais arquivos
+	//para verificar permissoes no momento de deletar, caso necessario
+	void set_num_primeiro_bloco(int);
+	void set_blocos_ocupados(int);
 	void set_pid_criador(int);
+	void set_nome_arquivo(char);
 	//Fim da definicao dos setters
 
 	//Inicio da definicao dos getters
 	int get_num_primeiro_bloco();
 	int get_blocos_ocupados();
+	int get_pid_criador();
 	char get_nome_arquivo();
 	//Fim da definicao dos getters
 

@@ -12,7 +12,7 @@
 #include "../Processos/processo.hpp"//para ter acesso aos pids e prioridades dos processos
 class sistema_arquivos{
 //Obs.:processos de tempo real tem prioridade 0
-//Inicio da definicao das variaveis do processo
+//Inicio da definicao da estrutura contida no arquivo files.txt
 	private:
 		//Inicio da definicao da estrutura contida no arquivo files.txt
 		int total_blocos_disco;
@@ -35,6 +35,19 @@ class sistema_arquivos{
 		std::vector<char> ocupacao_memoria;
 
 //Inicio da definicao dos metodos da classe
+	private:
+		void imprime_mensagem_sucesso_criacao_arquivo(operacao_arquivo,int);
+		void tenta_criar_arquivo();
+		void tenta_deletar_arquivo(std::vector<processo>);
+		//vai ver se o pid do processo criador do arquivo de nome nome_arq eh o msm do pid do processo que quer deletar
+		bool processo_criou_arquivo(int,char);
+		arquivo_gravado procura_arquivo_a_ser_deletado(char);
+		void deleta_arquivo(char,operacao_arquivo);
+		//escreve na estrutura que simula o disco (ocupacao_memoria)
+		void escreve_no_disco(int,int,char);
+		int busca_espacos_adjacentes();
+		bool existe_arquivo_gravado_com_mesmo_nome(char);
+		void salva_processo_criador_do_arquivo(operacao_arquivo,int);
 	public:
 		sistema_arquivos();//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez
 		//Inicio da declaracao dos setters
@@ -57,14 +70,8 @@ class sistema_arquivos{
 		*/
 		void adiciona_operacao_arquivo(char*);
 
-		//escreve na estrutura que simula o disco (ocupacao_memoria)
-		void escreve_no_disco(int,int,char);
-
 		void executa_operacoes_sobre_arquivo(std::vector<processo>);
 
-		void tenta_criar_arquivo(std::vector<processo>);
-
-		int busca_espacos_adjacentes();
 		/**
 		*	Metodo para imprimir os valores atuais das variaveis:
 		* total_blocos_disco, n e para percorrrer as listas de arquivos

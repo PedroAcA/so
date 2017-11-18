@@ -27,6 +27,25 @@ void arquivo_gravado::insere_informacoes_lidas(char* informacao_arquivo){
 	}
 }
 
+//setters usados para mapear quais processos criaram quais arquivos
+//para verificar permissoes no momento de deletar, caso necessario
+
+void arquivo_gravado::set_num_primeiro_bloco(int num_primeiro_bloco){
+	this->num_primeiro_bloco=num_primeiro_bloco;
+}
+void arquivo_gravado::set_blocos_ocupados(int blocos_ocupados){
+	this->blocos_ocupados=blocos_ocupados;
+}
+void arquivo_gravado::set_pid_criador(int pid_criador){
+	this->pid_criador=pid_criador;
+}
+void arquivo_gravado::set_nome_arquivo(char nome_arquivo){
+	this->nome_arquivo=nome_arquivo;
+}
+int arquivo_gravado::get_pid_criador(){
+	return this->pid_criador;
+}
+
 int arquivo_gravado::get_num_primeiro_bloco(){
 	return this->num_primeiro_bloco;
 }
@@ -44,5 +63,6 @@ void arquivo_gravado::imprime_infos_arquivo(){
 	printf("Nome arquivo gravado: %c \n",this->nome_arquivo);
 	printf("Primeiro bloco do arquivo: %d \n",this->num_primeiro_bloco);
 	printf("Total blocos ocupados pelo arquivo: %d \n",this->blocos_ocupados);
+	printf("PID do criador: %d \n",this->pid_criador);
 	printf("\n");
 }
