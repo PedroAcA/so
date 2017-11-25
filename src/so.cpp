@@ -21,7 +21,6 @@ int main(int argc, char* argv[]){
 	Recursos recursos;
 	filas processos; 
 	escalonador gerenciamento_de_processos;
-	Memoria memoria_principal;
 	leitor_arquivos.le_arquivos(argc,argv);
 	/**
 	//Laco for abaixo eh uma das maneiras de se acessar a lista de processos
@@ -35,7 +34,7 @@ int main(int argc, char* argv[]){
 		leitor_arquivos.lista_processos[i].imprime_infomacoes_processo(i+1);	
 	}
 	**/
-	memoria_principal.inicializa_memoria();
+	Memoria::inicializa_memoria();
 	recursos.inicializaRecursos();
 	recursos.imprimeStatus();
 	processos.insereFilas(leitor_arquivos);
