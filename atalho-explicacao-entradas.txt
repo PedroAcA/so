@@ -1,0 +1,13 @@
+processes.txt
+<tempo de inicialização>, <prioridade>, <tempo de processador>, <blocos em memória>, <número- código da impressora requisitada>, <requisição do scanner>, <requisição do modem>, <número- código do disco>
+
+
+files.txt
+- Linha 1: Quantidade de blocos do disco;
+- Linha 2: Quantidade de segmentos ocupados no disco (n);
+- A partir da Linha 3 até Linha n + 2: arquivo (a ser identificado por uma letra), número do primeiro
+bloco gravado, quantidade de blocos ocupados por este arquivo;
+- A partir da linha n + 3: cada linha representa uma operação a ser efetivada pelo sistema de arquivos
+do pseudo-SO. Para isso, essas linhas vão conter: <ID_Processo>, <Código_Operação>, <Nome_arquivo>, <se_operacaoCriar_numero_blocos>.
+
+(sendo código 0 para criar um arquivo, e código 1 para deletar)

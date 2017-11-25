@@ -162,7 +162,7 @@
 		char* prox_token =strtok(NULL,", "); 
 		if(prox_token==NULL){//para as funcoes/metodos que usam ela nao quebrarem por terem recebido null
 			printf("Nao consegui extrair um proximo token!\n");
-			return "0";//se nao conseguiu extrair proximo token, retorna um valor qualquer!=NULL e avisa ao usuario
+			return (char *)"0";//se nao conseguiu extrair proximo token, retorna um valor qualquer!=NULL e avisa ao usuario
 		}else{
 			return prox_token;
 		}

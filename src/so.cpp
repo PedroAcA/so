@@ -4,6 +4,7 @@
 #include "../include/modulo_filas.hpp"
 #include "../include/escalonamento.hpp"
 #include "../include/Memoria.hpp"
+#include "../include/Recursos.hpp"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,6 +18,7 @@ http://www.cplusplus.com/reference/deque/deque/
 int main(int argc, char* argv[]){
 	//Memoria::inicializa_memoria();
 	arquivos leitor_arquivos;
+	Recursos recursos;
 	filas processos; 
 	escalonador gerenciamento_de_processos;
 	Memoria memoria_principal;
@@ -34,6 +36,8 @@ int main(int argc, char* argv[]){
 	}
 	**/
 	memoria_principal.inicializa_memoria();
+	recursos.inicializaRecursos();
+	recursos.imprimeStatus();
 	processos.insereFilas(leitor_arquivos);
 	gerenciamento_de_processos.algoritmoEscalonamento(leitor_arquivos, processos);
 	leitor_arquivos.informacao_disco.executa_operacoes_sobre_arquivo(leitor_arquivos.lista_processos);
