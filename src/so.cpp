@@ -16,7 +16,6 @@ http://www.cplusplus.com/reference/deque/deque/
 **/
 
 int main(int argc, char* argv[]){
-	//Memoria::inicializa_memoria();
 	arquivos leitor_arquivos;
 	Recursos recursos;
 	filas processos; 
