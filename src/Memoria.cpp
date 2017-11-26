@@ -55,7 +55,7 @@ bool Memoria::aloca_tempo_real (processo *p, int i){
         //se estourar a memoria retorna fracasso
         if(j==FIM_TEMPO_REAL+1) return FRACASSO;
         //se o espaço nao for suficiente, tenta achar outro espaço
-        if(memoria_ram[j] == true) return aloca_usuario(p,j);
+        if(memoria_ram[j] == true) return aloca_tempo_real(p,j);
     }
 
     //se o espaço é suficiente, aloca o espaço
