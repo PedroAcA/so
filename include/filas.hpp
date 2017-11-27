@@ -13,6 +13,7 @@ public:
 	std::deque<int> Fila1; //prioridade 1
 	std::deque<int> Fila2; //prioridade 2
 	std::deque<int> Fila3; //prioridade 3
+	
 	filas();
 	/**
 	metodo que verifica a prioridade de cada processo e os separa entre as filas

@@ -1,7 +1,7 @@
 //Modulo principal que simula e gernecia as partes do pseudo-so
 #include "../include/arquivos.hpp"
 #include "../include/Processos/processo.hpp"
-#include "../include/modulo_filas.hpp"
+#include "../include/filas.hpp"
 #include "../include/escalonamento.hpp"
 #include "../include/Memoria.hpp"
 #include "../include/Recursos.hpp"
@@ -19,6 +19,7 @@ int main(int argc, char* argv[]){
 	arquivos leitor_arquivos;
 	Recursos recursos;
 	filas processos; 
+	Memoria memoria;
 	escalonador gerenciamento_de_processos;
 	leitor_arquivos.le_arquivos(argc,argv);
 	/**
@@ -33,11 +34,11 @@ int main(int argc, char* argv[]){
 		leitor_arquivos.lista_processos[i].imprime_infomacoes_processo(i+1);	
 	}
 	**/
-	Memoria::inicializa_memoria();
+	memoria.inicializa_memoria();
 	recursos.inicializaRecursos();
 	recursos.imprimeStatus();
 	processos.insereFilas(leitor_arquivos);
-	gerenciamento_de_processos.algoritmoEscalonamento(leitor_arquivos, processos);
+	gerenciamento_de_processos.algoritmoEscalonamento(leitor_arquivos, processos,memoria,recursos);
 	leitor_arquivos.informacao_disco.executa_operacoes_sobre_arquivo(leitor_arquivos.lista_processos);
 	leitor_arquivos.informacao_disco.imprime_informacoes_disco();
 	processos.destroiFilas();

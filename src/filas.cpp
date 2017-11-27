@@ -1,4 +1,4 @@
-#include "../include/modulo_filas.hpp"
+#include "../include/filas.hpp"
 
 using namespace std;
 //construtor
@@ -19,6 +19,7 @@ using namespace std;
 	}
 	int filas::existe_processo_para_executar_fila0(arquivos leitor_arquivos, int tempoCPU)
 	{
+		if(this->Fila0.empty()) return -1;
 		int id = 0, menor = leitor_arquivos.lista_processos[this->Fila0.front()].get_tempo_inicializacao();
 		if(tempoCPU == 0)
 		{
@@ -41,6 +42,7 @@ using namespace std;
 	}
 	int filas::existe_processo_para_executar_fila1(arquivos leitor_arquivos, int tempoCPU)
 	{
+		if(this->Fila1.empty()) return -1;
 		int id = 0, menor = leitor_arquivos.lista_processos[this->Fila1.front()].get_tempo_inicializacao();
 		if(tempoCPU == 0)
 		{
@@ -63,6 +65,7 @@ using namespace std;
 	}
 	int filas::existe_processo_para_executar_fila2(arquivos leitor_arquivos, int tempoCPU)
 	{
+		if(this->Fila2.empty()) return -1;
 		int id = 0, menor = leitor_arquivos.lista_processos[this->Fila2.front()].get_tempo_inicializacao();
 		if(tempoCPU == 0)
 		{
@@ -85,6 +88,7 @@ using namespace std;
 	}
 	int filas::existe_processo_para_executar_fila3(arquivos leitor_arquivos, int tempoCPU)
 	{
+		if(this->Fila3.empty()) return -1;
 		int id = 0, menor = leitor_arquivos.lista_processos[this->Fila3.front()].get_tempo_inicializacao();
 		if(tempoCPU == 0)
 		{

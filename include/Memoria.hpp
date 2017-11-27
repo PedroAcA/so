@@ -30,7 +30,7 @@ public:
     *  Exemplo de chamada: Memoria::aloca_tempo_real(&p,INICIO_TEMPO_REAL);
     */
     static bool aloca_tempo_real (processo *p, int i);
-    /**
+    /*
     *  Método que verifica disponibilidade e aloca memoria para processos de usuarios
     *  @param *p ponteiro para o processo que deseja alocar espaço de memoria
     *  @param i indica onde iniciar buscar por memoria, é utilizado para auxiliar a recursão
