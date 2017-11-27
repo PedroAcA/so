@@ -13,6 +13,7 @@ class escalonador{
 public:
 	escalonador();
 	bool alocaRecursos(arquivos,int, Recursos);
+	void desalocaRecursos(arquivos,int, Recursos);
 	void algoritmoEscalonamento(arquivos, filas, Memoria, Recursos);
 };
 #endif
