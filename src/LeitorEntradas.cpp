@@ -177,7 +177,7 @@
 		}
 	}
 	void LeitorEntradas::libera_lista_processos(){
-		std::cout<<"Liberando lista de aqruivos!"<<std::endl;
+
 		if(!this->lista_processos.empty()){
 			this->lista_processos.clear();
 		}
@@ -188,7 +188,7 @@
 		return this->lista_processos;
 	}
 
-	sistema_arquivos LeitorEntradas::get_disco(){
+	SistemaArquivos LeitorEntradas::get_disco(){
 		return this->informacao_disco;
 	}
 

@@ -10,7 +10,7 @@
 #include "operacao_arquivo.hpp"//para poder criar a lista_operacoes_arquivo
 #include "arquivo_gravado.hpp"//para poder criar a lista_arquivos_gravados
 #include "../Processos/Processo.hpp"//para ter acesso aos pids e prioridades dos processos
-class sistema_arquivos{
+class SistemaArquivos{
 //Obs.:processos de tempo real tem prioridade 0
 //Inicio da definicao da estrutura contida no arquivo files.txt
 	private:
@@ -49,7 +49,7 @@ class sistema_arquivos{
 		bool existe_arquivo_gravado_com_mesmo_nome(char);
 		void salva_processo_criador_do_arquivo(operacao_arquivo,int);
 	public:
-		sistema_arquivos();//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez
+		SistemaArquivos();//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez
 		//Inicio da declaracao dos setters
 		void set_total_blocos_disco(int);
 		void set_n(int); 

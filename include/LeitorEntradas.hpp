@@ -12,13 +12,13 @@
 #include <stdlib.h>
 #include <string.h>//para usar funcoes como strlen
 #include "Processos/Processo.hpp"//para poder criar uma lista de processos
-#include "Sistema_Arquivos/sistema_arquivos.hpp"
+#include "Sistema_Arquivos/SistemaArquivos.hpp"
 class LeitorEntradas{
 //Inicio da definicao das variaveis da classe
 public://a lista de processos e informacoes do disco deverao ser publicas
 //para que outros modulos do SO possam acessar esssa informacao 
 	std::vector<Processo> lista_processos;
-	sistema_arquivos informacao_disco;
+	SistemaArquivos informacao_disco;
 //Fim da definicao das variaveis da classe
 
 //Inicio da definicao dos metodos da classe
@@ -88,7 +88,7 @@ public:
 
 	std::vector<Processo> get_lista_processos();
 
-	sistema_arquivos get_disco();
+	SistemaArquivos get_disco();
 //Fim da definicao dos metodos da classe	
 };
 #endif

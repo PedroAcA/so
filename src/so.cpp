@@ -4,7 +4,7 @@
 #include "../include/Filas.hpp"
 #include "../include/Escalonador.hpp"
 #include "../include/Memoria.hpp"
-#include "../include/Sistema_Arquivos/sistema_arquivos.hpp"
+#include "../include/Sistema_Arquivos/SistemaArquivos.hpp"
 #include "../include/Recursos.hpp"
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,7 +22,7 @@ int main(int argc, char* argv[]){
 	std::vector<Processo> lista_processos;
 	Filas filasDeProcessos;
 	Memoria memoria;
-	sistema_arquivos disco;
+	SistemaArquivos disco;
 	Escalonador escalonador;
 
 	
