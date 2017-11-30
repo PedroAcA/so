@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include "operacao_arquivo.hpp"//para poder criar a lista_operacoes_arquivo
 #include "arquivo_gravado.hpp"//para poder criar a lista_arquivos_gravados
-#include "../Processos/processo.hpp"//para ter acesso aos pids e prioridades dos processos
+#include "../Processos/Processo.hpp"//para ter acesso aos pids e prioridades dos processos
 class sistema_arquivos{
 //Obs.:processos de tempo real tem prioridade 0
 //Inicio da definicao da estrutura contida no arquivo files.txt
@@ -38,7 +38,7 @@ class sistema_arquivos{
 	private:
 		void imprime_mensagem_sucesso_criacao_arquivo(operacao_arquivo,int);
 		void tenta_criar_arquivo();
-		void tenta_deletar_arquivo(std::vector<processo>);
+		void tenta_deletar_arquivo(std::vector<Processo>);
 		//vai ver se o pid do processo criador do arquivo de nome nome_arq eh o msm do pid do processo que quer deletar
 		bool processo_criou_arquivo(int,char);
 		arquivo_gravado procura_arquivo_a_ser_deletado(char);
@@ -70,7 +70,7 @@ class sistema_arquivos{
 		*/
 		void adiciona_operacao_arquivo(char*);
 
-		void executa_operacoes_sobre_arquivo(std::vector<processo>);
+		void executa_operacoes_sobre_arquivo(std::vector<Processo>);
 
 		/**
 		*	Metodo para imprimir os valores atuais das variaveis:

@@ -1,9 +1,10 @@
 //Modulo principal que simula e gernecia as partes do pseudo-so
-#include "../include/arquivos.hpp"
-#include "../include/Processos/processo.hpp"
-#include "../include/filas.hpp"
-#include "../include/escalonamento.hpp"
+#include "../include/LeitorEntradas.hpp"
+#include "../include/Processos/Processo.hpp"
+#include "../include/Filas.hpp"
+#include "../include/Escalonador.hpp"
 #include "../include/Memoria.hpp"
+#include "../include/Sistema_Arquivos/sistema_arquivos.hpp"
 #include "../include/Recursos.hpp"
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,12 +17,15 @@ http://www.cplusplus.com/reference/deque/deque/
 **/
 
 int main(int argc, char* argv[]){
-	arquivos leitor_arquivos;
+	LeitorEntradas leitor_entradas;
 	Recursos recursos;
-	filas processos; 
+	std::vector<Processo> lista_processos;
+	Filas filasDeProcessos;
 	Memoria memoria;
-	escalonador gerenciamento_de_processos;
-	leitor_arquivos.le_arquivos(argc,argv);
+	sistema_arquivos disco;
+	Escalonador escalonador;
+
+	
 	/**
 	//Laco for abaixo eh uma das maneiras de se acessar a lista de processos
 	//Outras formas de acesso a lista (std::vector) podem ser encontradas na 
@@ -34,14 +38,20 @@ int main(int argc, char* argv[]){
 		leitor_arquivos.lista_processos[i].imprime_infomacoes_processo(i+1);	
 	}
 	**/
+
+	leitor_entradas.le_arquivos(argc,argv);
+
+	lista_processos = leitor_entradas.get_lista_processos();
+	disco = leitor_entradas.get_disco();
+	filasDeProcessos.insereProcessos(lista_processos);
+
 	memoria.inicializa_memoria();
 	recursos.inicializaRecursos();
-	recursos.imprimeStatus();
-	processos.insereFilas(leitor_arquivos);
-	gerenciamento_de_processos.algoritmoEscalonamento(leitor_arquivos, processos,memoria,recursos);
-	leitor_arquivos.informacao_disco.executa_operacoes_sobre_arquivo(leitor_arquivos.lista_processos);
-	leitor_arquivos.informacao_disco.imprime_informacoes_disco();
-	processos.destroiFilas();
-	leitor_arquivos.libera_lista_processos();
+	
+	escalonador.algoritmoEscalonamento(leitor_entradas, filasDeProcessos, memoria, recursos);
+	disco.executa_operacoes_sobre_arquivo(lista_processos);
+	disco.imprime_informacoes_disco();
+	filasDeProcessos.destroiFilas();
+
 	return 0;
 }

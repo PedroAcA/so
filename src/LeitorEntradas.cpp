@@ -2,8 +2,8 @@
 //arquivos.cpp nao eh thread safe! (pois usa strktok e variaveis de arquivos.hpp
 //sao escritas sem mutexes)
 
-#include "../include/arquivos.hpp"
-	arquivos::arquivos(){
+#include "../include/LeitorEntradas.hpp"
+	LeitorEntradas::LeitorEntradas(){
 
 	}
 	//Na versao incial, le_arquivos so le processes.txt (TODO:implementar
@@ -16,7 +16,7 @@
 	argv[1] = caminho relativo do executavel ate o arquivo de processos (no formato txt)
 	argv[2] = caminho relativo do executavel ate o arquivo de configuracoes do disco (no formato txt)
 */
-	void arquivos::le_arquivos(int argc,char** argv){//argumentos argc e argv da main
+	void LeitorEntradas::le_arquivos(int argc,char** argv){//argumentos argc e argv da main
 		//argc contem 1 (nome do prgrama) + numero de elementos passados por terminal
 		// argv contem o nome do programa chamado + elementos passados por terminal
 		FILE *arq_processos,*arq_disco;// ponteiros para contem os arquivos abertos
@@ -50,7 +50,7 @@
 //Nao foi utilizada a funcao strstr (da biblioteca string.h) para identificar
 //a extensao pois a strstr poderia retornar que um arquivo de nome
 //proc.txtess seria valido por conter a string ".txt" 
-	bool arquivos::arquivo_contem_extensao_txt(char** argv){
+	bool LeitorEntradas::arquivo_contem_extensao_txt(char** argv){
 		char txt[] = ".txt";
 		int maior_indice_extensao_txt = (int)strlen(txt) -1;// pois os indices vao de 0 ..(N-1)
 		//argv[1] argv 1 contem o caminho ate o arquivo do tipo 'processes.txt'
@@ -74,11 +74,11 @@
 		}
 		return true;//se chegou a esse ponto, entao a extensao passada em argv eh .txt
 	}
-	void arquivos::extrai_informacoes_processos(FILE* arq_processos){//ponteiro para arquivos de processo
+	void LeitorEntradas::extrai_informacoes_processos(FILE* arq_processos){//ponteiro para arquivos de processo
 		char *linha_atual,*tokens;
 		int tempo_inicializacao, tempo_processador;
 		bool requisicao_impressora,requisicao_scanner,requisicao_modem;
-		processo processo_atual;
+		Processo processo_atual;
 		while(!feof(arq_processos)){
 			linha_atual = this->le_proxima_linha(arq_processos);
 			if(linha_atual[0]!='\0'){//So analisa a linha se ela nao esta vazia
@@ -118,7 +118,7 @@
 			free(linha_atual);//pois a funcao le_proxima_linha retorna a linha alocada dinamicamente
 		}//while(!feof(arq_processos))
 	}//void arquivos::extrai_informacoes_processos(FILE* arq_processos)
-	void arquivos::extrai_informacoes_disco(FILE* arq_disco){
+	void LeitorEntradas::extrai_informacoes_disco(FILE* arq_disco){
 		char *linha_atual;
 		int contador_linhas=0, n;//contador_linhas serve para saber se estamos entre a linha 3 e n+2
 		while(!feof(arq_disco)){
@@ -143,7 +143,7 @@
 			free(linha_atual);
 		}
 	}
-	char* arquivos::le_proxima_linha(FILE* arq){
+	char* LeitorEntradas::le_proxima_linha(FILE* arq){
 		int i;
    		char c = fgetc(arq);
     	char* linha = (char*)calloc(1,sizeof(char));
@@ -158,7 +158,7 @@
         linha[i] = '\0';
 		return linha;
 	}
-	char* arquivos::proximo_token(){
+	char* LeitorEntradas::proximo_token(){
 		char* prox_token =strtok(NULL,", "); 
 		if(prox_token==NULL){//para as funcoes/metodos que usam ela nao quebrarem por terem recebido null
 			printf("Nao consegui extrair um proximo token!\n");
@@ -170,16 +170,27 @@
 	//Metodo imprime_informacoes_processos() pode ser usado quando
 	//alguem quer imprimir todas as informcaoes dos processos lidos do
 	//arquivo de forma automatica
-	void arquivos::imprime_informacoes_processos(){
+	void LeitorEntradas::imprime_informacoes_processos(){
 		int i;
 		for (i = 0; i < (int) this->lista_processos.size(); i++){
 			this->lista_processos[i].imprime_infomacoes_processo(i+1);	
 		}
 	}
-	void arquivos::libera_lista_processos(){
+	void LeitorEntradas::libera_lista_processos(){
 		std::cout<<"Liberando lista de aqruivos!"<<std::endl;
 		if(!this->lista_processos.empty()){
 			this->lista_processos.clear();
 		}
 		std::cout<<"Lista de aqruivos liberada!"<<std::endl;
 	}
+
+	std::vector<Processo> LeitorEntradas::get_lista_processos(){
+		return this->lista_processos;
+	}
+
+	sistema_arquivos LeitorEntradas::get_disco(){
+		return this->informacao_disco;
+	}
+
+
+

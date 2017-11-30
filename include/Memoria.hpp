@@ -10,7 +10,7 @@
 #define INICIO_USUARIO 64
 #define FIM_USUARIO 1023
 
-#include "Processos/processo.hpp"
+#include "Processos/Processo.hpp"
 
 
 class Memoria{
@@ -20,6 +20,7 @@ public:
     /*TODOS ESTES MÉTODOS SÃO ESTATICOS,PORTANTO NAO NECESSITAM A CRIAÇÃO DE UM OBJETO
       AO CHAMÁ-LOS UTILIZE A FORMA Memoria::metodo(parametros);
     
+    */
     /**
     *  Método que verifica disponibilidade e aloca memoria para processos de tempo real
     *  @param *p ponteiro para o processo que deseja alocar espaço de memoria
@@ -29,7 +30,7 @@ public:
     *  o processo foi alocado com sucesso.
     *  Exemplo de chamada: Memoria::aloca_tempo_real(&p,INICIO_TEMPO_REAL);
     */
-    static bool aloca_tempo_real (processo *p, int i);
+    static bool aloca_tempo_real (Processo *p, int i);
     /*
     *  Método que verifica disponibilidade e aloca memoria para processos de usuarios
     *  @param *p ponteiro para o processo que deseja alocar espaço de memoria
@@ -39,13 +40,13 @@ public:
     *  o processo foi alocado com sucesso.
     *  Exemplo de chamada: Memoria::aloca_usuario(&p,INICIO_USUARIO);
     */
-    static bool aloca_usuario (processo *p, int i);
+    static bool aloca_usuario (Processo *p, int i);
     /**
     *  Método que desaloca memoria para processos de tempo real e processos de usuario
     *  @param *p ponteiro para o processo que deseja liberar espaço de memoria
     *  Exemplo de chamada: Memoria::desaloca_processo(&p);
     */
-    static void desaloca_processo (processo *p);
+    static void desaloca_processo (Processo *p);
     /**
     *  Método que imprime na tela o estado atual da memória
     *  Exemplo de chamada: Memoria::dump_memory();

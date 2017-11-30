@@ -2,20 +2,21 @@
 #define PROCESSO_H
 #include <iostream>//para usar o std::cout e facilitar a impressao das informcoes na tela
 //TODO: fazer metodo para calcular offset de memoria
-class processo{
+class Processo{
 //Inicio da definicao das variaveis do processo
 private:
 	//Inicio da definicao da estrutura contida no arquivo processes.txt
-	int tempo_inicializacao, tempo_processador;
-	int prioridade;
-	int blocos_em_memoria;
-	int inicio;
+	int PID;
+	int  tempo_inicializacao, tempo_processador;
+	int  prioridade;
+	int  blocos_em_memoria;
+	int  inicio;
 	bool requisicao_impressora,requisicao_scanner,requisicao_modem;
-	int codigo_disco;
+	int  codigo_disco;
 	//Fim da definicao da estrutura contida no arquivo processes.txt
 
 	//Inicio da definicao de outras variaveis que devem aparecer na tela, mas nao estao no txt
-		int Offset_da_memoria;//uma variavel que pode ser calculada 
+	int Offset_da_memoria;//uma variavel que pode ser calculada 
 	/*
 		Observacao: cada processo sera colocado em uma estrutura de vetor 
 		(std::vector). Logo, seu PID (ID do processo) pode ser entendido como
@@ -28,8 +29,9 @@ private:
 //Inicio da definicao dos metodos do processo
 
 public:
-	processo();//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez 
+	Processo();//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez 
 	//Inicio da declaracao dos setters
+	void set_PID(int);
 	void set_tempos(int,int);//tempos de inicializacao e de processador respectivamente
 	void set_requisicoes(bool,bool,bool);//requisicoes de impressora,scanner e modem respectivamente
 	void set_prioridade(int);

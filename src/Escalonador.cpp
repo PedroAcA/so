@@ -1,12 +1,12 @@
-#include "../include/escalonamento.hpp"
+#include "../include/Escalonador.hpp"
 
 using namespace std;
 
-	escalonador::escalonador()
+	Escalonador::Escalonador()
 	{
 
 	}
-	bool escalonador::alocaRecursos(arquivos leitor_arquivos, int pid, Recursos recursos)
+	bool Escalonador::alocaRecursos(LeitorEntradas leitor_arquivos, int pid, Recursos recursos)
 	{
 		//verifica se solicita algum recurso
 		if(leitor_arquivos.lista_processos[pid].get_requisicao_impressora() || leitor_arquivos.lista_processos[pid].get_requisicao_scanner() || leitor_arquivos.lista_processos[pid].get_requisicao_modem())
@@ -31,7 +31,7 @@ using namespace std;
 		}
 		return true;
 	}
-	void escalonador::desalocaRecursos(arquivos leitor_arquivos, int pid, Recursos recursos)
+	void Escalonador::desalocaRecursos(LeitorEntradas leitor_arquivos, int pid, Recursos recursos)
 	{
 		//verifica se solicita algum recurso
 		if(leitor_arquivos.lista_processos[pid].get_requisicao_impressora() || leitor_arquivos.lista_processos[pid].get_requisicao_scanner() || leitor_arquivos.lista_processos[pid].get_requisicao_modem())
@@ -51,7 +51,7 @@ using namespace std;
 		}
 		return;
 	}
-	void escalonador::algoritmoEscalonamento(arquivos leitor_arquivos, filas processos, Memoria memoria, Recursos recursos)
+	void Escalonador::algoritmoEscalonamento(LeitorEntradas leitor_arquivos, Filas processos, Memoria memoria, Recursos recursos)
 	{
 		int i,tempoCPU = 0, pid, tempoInit, tempoProc;
 		int pid1 = -1, pid2 = -1, pid3 = -1, tempo1 = 0, tempo2 = 0, tempo3 = 0;

@@ -5,8 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>//para usar funcoes como strlen
-#include "../include/arquivos.hpp"//para poder criar uma lista de processos
-class filas{
+#include "Processos/Processo.hpp"
+#include "../include/LeitorEntradas.hpp"//para poder criar uma lista de processos
+class Filas{
 public:
 	std::deque<int> Fila0; //fila de prioridade máxima: processos de tempo real
 	//Filas destinadas aos processos de usuário:
@@ -14,40 +15,40 @@ public:
 	std::deque<int> Fila2; //prioridade 2
 	std::deque<int> Fila3; //prioridade 3
 	
-	filas();
+	Filas();
 	/**
 	metodo que verifica a prioridade de cada processo e os separa entre as filas
 	@param : uma lista de processos
 	**/
-	void insereFilas(arquivos);
+	void insereProcessos(std::vector<Processo> );
 	/**
 	metodo que verifica de acordo com o tempo de chegada de cada processo pertencente
 	a Fila0 se existe um processo que está pronto pra ser executado
 	@param : uma lista de processos
 	@param : tempo da CPU
 	**/
-	int existe_processo_para_executar_fila0(arquivos, int);
+	int existe_processo_para_executar_fila0(LeitorEntradas, int);
 	/**
 	metodo que verifica de acordo com o tempo de chegada de cada processo pertencente
 	a Fila1 se existe um processo que está pronto pra ser executado
 	@param : uma lista de processos
 	@param : tempo da CPU
 	**/
-	int existe_processo_para_executar_fila1(arquivos, int);
+	int existe_processo_para_executar_fila1(LeitorEntradas, int);
 	/**
 	metodo que verifica de acordo com o tempo de chegada de cada processo pertencente
 	a Fila2 se existe um processo que está pronto pra ser executado
 	@param : uma lista de processos
 	@param : tempo da CPU
 	**/
-	int existe_processo_para_executar_fila2(arquivos, int);
+	int existe_processo_para_executar_fila2(LeitorEntradas, int);
 	/**
 	metodo que verifica de acordo com o tempo de chegada de cada processo pertencente
 	a Fila3 se existe um processo que está pronto pra ser executado
 	@param : uma lista de processos
 	@param : tempo da CPU
 	**/
-	int existe_processo_para_executar_fila3(arquivos, int);
+	int existe_processo_para_executar_fila3(LeitorEntradas, int);
 	/**
 	metodo que retira aquele processo da fila0
 	@param : o identificador de um processo PID

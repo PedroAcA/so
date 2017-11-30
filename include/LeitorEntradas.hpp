@@ -5,19 +5,19 @@
 
 //Versao incial so le o arquivo processes.txt
 //Versao atual ja le o arquivo files.txt
-#ifndef ARQUIVOS_H//include de guarda
-#define ARQUIVOS_H
+#ifndef LEITORENTRADAS_H//include de guarda
+#define LEITORENTRADAS_H
 #include <vector>//para usar std::vector (estrutura que permite trabalahr como vetor, pilha ou lista)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>//para usar funcoes como strlen
-#include "Processos/processo.hpp"//para poder criar uma lista de processos
+#include "Processos/Processo.hpp"//para poder criar uma lista de processos
 #include "Sistema_Arquivos/sistema_arquivos.hpp"
-class arquivos{
+class LeitorEntradas{
 //Inicio da definicao das variaveis da classe
 public://a lista de processos e informacoes do disco deverao ser publicas
 //para que outros modulos do SO possam acessar esssa informacao 
-	std::vector<processo> lista_processos;
+	std::vector<Processo> lista_processos;
 	sistema_arquivos informacao_disco;
 //Fim da definicao das variaveis da classe
 
@@ -59,7 +59,7 @@ private:
 	**/
 	char* le_proxima_linha(FILE*);
 public:
-	arquivos();//construtor padrao (default)
+	LeitorEntradas();//construtor padrao (default)
 	//Na versao incial, le_arquivos so le processes.txt (TODO:implementar
 	//leitura de files.txt)
 	//(DONE:implementar leitura de files.txt)
@@ -85,6 +85,10 @@ public:
 	*size=0
 	**/
 	void libera_lista_processos();
+
+	std::vector<Processo> get_lista_processos();
+
+	sistema_arquivos get_disco();
 //Fim da definicao dos metodos da classe	
 };
 #endif

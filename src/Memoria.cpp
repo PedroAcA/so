@@ -3,7 +3,7 @@
 
 bool memoria_ram[1024];
 
-bool Memoria::aloca_usuario (processo *p, int i){
+bool Memoria::aloca_usuario (Processo *p, int i){
 
     //procura um espaço livre na memoria
     while(i<=FIM_USUARIO && memoria_ram[i]==true)i++;
@@ -31,7 +31,7 @@ bool Memoria::aloca_usuario (processo *p, int i){
 
     return SUCESSO;
 }
-void Memoria::desaloca_processo (processo *p){
+void Memoria::desaloca_processo (Processo *p){
     int i;
 
     //a partir do primeiro bloco até o ultimo, seta a memoria como livre
@@ -40,7 +40,7 @@ void Memoria::desaloca_processo (processo *p){
     }
 
 }
-bool Memoria::aloca_tempo_real (processo *p, int i){
+bool Memoria::aloca_tempo_real (Processo *p, int i){
 
     //procura um espaço livre na memoria
     while(i<=FIM_TEMPO_REAL && memoria_ram[i]==true)i++;
