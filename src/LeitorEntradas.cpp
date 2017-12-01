@@ -175,7 +175,7 @@
 	void LeitorEntradas::imprime_informacoes_processos(){
 		int i;
 		for (i = 0; i < (int) this->lista_processos.size(); i++){
-			this->lista_processos[i].imprime_infomacoes_processo(i+1);	
+			this->lista_processos[i].imprime_informacoes_processo();	
 		}
 	}
 	void LeitorEntradas::libera_lista_processos(){

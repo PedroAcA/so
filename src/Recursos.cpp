@@ -6,8 +6,6 @@
     	impressora[0]=DISPONIVEL;
     	impressora[1]=DISPONIVEL;
     	modem = DISPONIVEL;
-    	std::cout << "recursos inicializados..\n";
-
     }
 
     void Recursos::imprimeStatus (){

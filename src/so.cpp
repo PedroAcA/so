@@ -53,7 +53,7 @@ int main(int argc, char* argv[]){
 	
 	disco.executa_operacoes_sobre_arquivo(lista_processos);
 	disco.imprime_informacoes_disco();
-	filasDeProcessos.destroiFilas();
+
 
 	return 0;
 }

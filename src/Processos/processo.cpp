@@ -82,15 +82,14 @@
 		return this->codigo_disco;
 	}
 	//Fim da implementacao dos getters
-	void Processo::imprime_infomacoes_processo(int PID){//sera passado a ele o PID
-		std::cout<<std::endl;
-		std::cout<<"PID: "<<PID<<std::endl;
+	void Processo::imprime_informacoes_processo(){
+		std::cout<<"Processo "<<this->PID<<std::endl;
+		std::cout<<"PID: "<<this->PID<<std::endl;
 		std::cout<<"blocks: "<<this->blocos_em_memoria<<std::endl;
 		std::cout<<"priority: "<<this->prioridade<<std::endl;
 		std::cout<<"time: "<<this->tempo_processador<<std::endl;
 		std::cout<<"printers: "<<this->requisicao_impressora<<std::endl;
 		std::cout<<"scanners: "<<this->requisicao_scanner<<std::endl;
 		std::cout<<"modems: "<<this->requisicao_modem<<std::endl;
-		//drives: 0//nao tem essa informacao no processes.txt, certo?
 		std::cout<<std::endl;
 	}

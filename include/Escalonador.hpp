@@ -15,7 +15,8 @@
 class Escalonador{
 public:
 	
-	std::deque<Processo> processosFuturos; 
+	std::deque<Processo> processosFuturos;
+	std::deque<Processo> processosEsperandoMemoria; 
 	std::map<int,Processo> processosRodando; 
 	std::deque<Processo> processosTerminados;
 

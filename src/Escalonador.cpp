@@ -21,11 +21,31 @@ using namespace std;
 
 		for(unsigned int i=0; i<this->processosFuturos.size(); i++){	
 			if(this->processosFuturos[i].get_tempo_inicializacao() <= this->Tempo){
-				if(alocaMemoria(processosFuturos[i].get_PID())){
+				if(alocaMemoria(i)){
+					std::cout<<"\ndispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Alocado em memória.\n";
+					processosFuturos[i].imprime_informacoes_processo();	
 					admiteProcesso(i);
 					i--;
+					
 				}
-				else std::cout<<"NAO FOI POSSIVEL ALOCAR MEMORIA PARA O PROCESSO "<< processosFuturos[i].get_PID()<<"\n";
+				else{
+					std::cout<<"\ndispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Não foi possível alocar memória.\n";
+
+					if(processosFuturos[i].prioridade==0 && processosFuturos[i].blocos_em_memoria>64){
+						this->processosFuturos.erase(processosFuturos.begin() + i);
+						i--;
+					}
+					else if(processosFuturos[i].blocos_em_memoria>960){
+						this->processosFuturos.erase(processosFuturos.begin() + i);
+						i--;
+					}
+					else{
+						processosEsperandoMemoria.push_back(processosFuturos[i]);
+						this->processosFuturos.erase(processosFuturos.begin() + i);
+						i--;
+					}
+
+				} 
 			}
 		}
 
@@ -42,20 +62,21 @@ using namespace std;
 
 
 
-	bool Escalonador::alocaMemoria(int pid){
-		if(processosRodando[pid].get_prioridade()==0)
-			return Memoria::aloca_tempo_real(&processosRodando[pid], INICIO_TEMPO_REAL);
+	bool Escalonador::alocaMemoria(int i){
+		if(processosFuturos[i].get_prioridade()==0)
+			return memoria.aloca_tempo_real(&processosFuturos[i],INICIO_TEMPO_REAL);
 		
-		return Memoria::aloca_usuario(&processosRodando[pid],INICIO_USUARIO);
+		return memoria.aloca_usuario(&processosFuturos[i],INICIO_USUARIO);
 		
 	}
 
 	void Escalonador::desalocaMemoria(int pid){
-		if(processosRodando[pid].get_prioridade()==0)
-			return Memoria::desaloca_tempo_real(&processosRodando[pid]);
+		memoria.desaloca_processo(&processosRodando[pid]);
 		
-		return Memoria::desaloca_usuario(&processosRodando[pid]);
-		
+		for(unsigned int i=0; i<processosEsperandoMemoria.size(); ++i)
+			processosFuturos.push_back(processosEsperandoMemoria[i]);
+		processosEsperandoMemoria.clear();
+
 	}
 
 
@@ -196,8 +217,13 @@ using namespace std;
 			
 			this->Tempo++;
 			if(Tempo>50) break;
-
 		}
+
+		std::cout<<"\n";
+		filasDeProcessos.destroiFilas();
+		processosRodando.clear();
+		processosFuturos.clear();
+		processosTerminados.clear();
 				
 		
 	} 

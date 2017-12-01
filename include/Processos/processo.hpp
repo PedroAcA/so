@@ -46,7 +46,7 @@ public:
 	int get_inicio();
 	int get_codigo_disco();
 	//Fim da declaracao dos getters
-	void imprime_infomacoes_processo(int);//sera passado a ele o PID
+	void imprime_informacoes_processo();//sera passado a ele o PID
 //Fim da definicao dos metodos do processo
 };
 #endif
