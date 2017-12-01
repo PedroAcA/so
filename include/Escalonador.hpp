@@ -21,7 +21,7 @@ public:
 	std::map<int,Processo> processosRodando; 
 	std::deque<Processo> processosTerminados;
 
-	//filas de bloqueados so armazenam pid de processos que estao na fila processosRodando
+	//filas de bloqueados so armazenam pids de processos que estao na fila processosRodando
 	std::deque<int> bloqueadosImp1;
 	std::deque<int> bloqueadosImp2;
 	std::deque<int> bloqueadosModem;
@@ -31,7 +31,7 @@ public:
 	bool CPU_livre;
 
 
-	Filas filasDeProcessos; //filas de prioridade so armazenam pid de processos que estao na fila processosRodando
+	Filas filasDeProcessos; //filas de prioridade so armazenam pids de processos que estao na fila processosRodando
 	Memoria memoria;
 	Recursos recursos;
 	int Tempo;

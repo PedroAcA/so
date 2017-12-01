@@ -6,6 +6,9 @@
 #define OCUPADO false
 #define DISPONIVEL true
 
+/*
+Esta classe implementa os recursos com suas solicitaçõe e liberações.
+*/
 
 class Recursos{
 

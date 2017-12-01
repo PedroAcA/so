@@ -7,7 +7,9 @@ class Processo{
 //private:
 public:
 	int  PID;
-	int  tempo_inicializacao, tempo_processador, tempo_rodando;
+	int  tempo_inicializacao;
+	int tempo_processador;
+	int tempo_rodando;
 	int  prioridade;
 	int  blocos_em_memoria;
 	int  inicio;

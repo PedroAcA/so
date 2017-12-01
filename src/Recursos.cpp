@@ -1,5 +1,7 @@
 #include "../include/Recursos.hpp"
-
+/*
+Esta classe implementa os recursos com suas solicitaçõe e liberações.
+*/
 
 	void Recursos::inicializaRecursos (){
     	scanner = DISPONIVEL;
@@ -8,27 +10,12 @@
     	modem = DISPONIVEL;
     }
 
-    void Recursos::imprimeStatus (){
-    	std::cout << "Scanner: ";
-    	if(scanner==DISPONIVEL) std::cout << "DISPONIVEL\n";
-    	else std::cout << "OCUPADO\n";
-
-    	std::cout << "Modem: ";
-    	if(modem==DISPONIVEL) std::cout << "DISPONIVEL\n";
-    	else std::cout << "OCUPADO\n";
-
-    	std::cout << "Impressora1: ";
-    	if(impressora[0]==DISPONIVEL) std::cout << "DISPONIVEL\n";
-    	else std::cout << "OCUPADO\n";
-
-    	std::cout << "Impressora2: ";
-    	if(impressora[1]==DISPONIVEL) std::cout << "DISPONIVEL\n";
-    	else std::cout << "OCUPADO\n";
-
-    	std::cout<<"\n";
-
-    }
-
+/*
+    Note que todos os métodos do tipo "solicita" implementam a política de liberar todos os recursos
+    detidos por um processo caso um outro recurso o seja negado.
+    Esta política é parte da prevenção contra dead-locks implementada neste trabalho pois, nenhum processo
+    será bloqueado terá posse de NENHUM recurso, isso é garantido já aqui em "baixo nível" na implementação de recursos.
+*/
     bool Recursos::solicitaScanner (Processo *p){
     	if(scanner==DISPONIVEL){
     		scanner=OCUPADO;
@@ -41,10 +28,6 @@
 
     }
 
-    void  Recursos::liberaScanner (){
-    	scanner = DISPONIVEL;
-    }
-
     bool  Recursos::solicitaModem (Processo *p){
     	if(modem==DISPONIVEL){
     		modem = OCUPADO;
@@ -54,10 +37,6 @@
 
         liberaRecursos(p);
     	return false;
-    }
-    
-    void  Recursos::liberaModem (){
-    	modem=DISPONIVEL;
     }
 
     bool  Recursos::solicitaImpressora (Processo *p){
@@ -76,14 +55,7 @@
         liberaRecursos(p);
     	return false;
     }
-    
-    void  Recursos::liberaImpressora (int num){
-    	num--;
-        if(num!=0 && num!=1){
-            std::cout<<"Numero de impressora invalido!!\n";
-        }
-    	impressora[num]=DISPONIVEL;
-    }
+        
 
 
     void Recursos::liberaRecursos(Processo *p){
@@ -100,6 +72,41 @@
             liberaImpressora(p->detemImpressora);
             p->detemImpressora=0;
         }
+
+    }
+
+    void  Recursos::liberaScanner (){
+        scanner = DISPONIVEL;
+    }
+    void  Recursos::liberaImpressora (int num){
+        num--;
+        if(num!=0 && num!=1){
+            std::cout<<"Numero de impressora invalido!!\n";
+        }
+        impressora[num]=DISPONIVEL;
+    }
+    void  Recursos::liberaModem (){
+        modem=DISPONIVEL;
+    }
+
+    void Recursos::imprimeStatus (){
+        std::cout << "Scanner: ";
+        if(scanner==DISPONIVEL) std::cout << "DISPONIVEL\n";
+        else std::cout << "OCUPADO\n";
+
+        std::cout << "Modem: ";
+        if(modem==DISPONIVEL) std::cout << "DISPONIVEL\n";
+        else std::cout << "OCUPADO\n";
+
+        std::cout << "Impressora1: ";
+        if(impressora[0]==DISPONIVEL) std::cout << "DISPONIVEL\n";
+        else std::cout << "OCUPADO\n";
+
+        std::cout << "Impressora2: ";
+        if(impressora[1]==DISPONIVEL) std::cout << "DISPONIVEL\n";
+        else std::cout << "OCUPADO\n";
+
+        std::cout<<"\n";
 
     }
 
