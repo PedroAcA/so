@@ -1,4 +1,5 @@
 #include "../include/Escalonador.hpp"
+#include "../include/Memoria.hpp"
 
 using namespace std;
 
@@ -42,19 +43,19 @@ using namespace std;
 
 
 	bool Escalonador::alocaMemoria(int pid){
-		//if(processosRodando[pid].get_prioridade()==0)
-			//return memoria.aloca_tempo_real(&processosRodando[pid]);
+		if(processosRodando[pid].get_prioridade()==0)
+			return Memoria::aloca_tempo_real(&processosRodando[pid], INICIO_TEMPO_REAL);
 		
-		return /*memoria.aloca_usuario(&processosRodando[pid]);
-		*/ true;
+		return Memoria::aloca_usuario(&processosRodando[pid],INICIO_USUARIO);
+		
 	}
 
 	void Escalonador::desalocaMemoria(int pid){
-		//if(processosRodando[pid].get_prioridade()==0)
-			//return memoria.desaloca_tempo_real(&processosRodando[pid]);
+		if(processosRodando[pid].get_prioridade()==0)
+			return Memoria::desaloca_tempo_real(&processosRodando[pid]);
 		
-		return; /*memoria.desaloca_usuario(&processosRodando[pid]);
-		*/ 
+		return Memoria::desaloca_usuario(&processosRodando[pid]);
+		
 	}
 
 
