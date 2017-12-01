@@ -15,11 +15,13 @@
 class Escalonador{
 public:
 	
+	//filas utilizadas para o escalonamento
 	std::deque<Processo> processosFuturos;
 	std::deque<Processo> processosEsperandoMemoria; 
 	std::map<int,Processo> processosRodando; 
 	std::deque<Processo> processosTerminados;
 
+	//filas de bloqueados so armazenam pid de processos que estao na fila processosRodando
 	std::deque<int> bloqueadosImp1;
 	std::deque<int> bloqueadosImp2;
 	std::deque<int> bloqueadosModem;
@@ -29,7 +31,7 @@ public:
 	bool CPU_livre;
 
 
-	Filas filasDeProcessos; 
+	Filas filasDeProcessos; //filas de prioridade so armazenam pid de processos que estao na fila processosRodando
 	Memoria memoria;
 	Recursos recursos;
 	int Tempo;
@@ -38,7 +40,7 @@ public:
 
 	void inicializa(std::deque<Processo> listaProcessos,  Recursos recursos, Memoria memoria);
 	
-	void verificaChegadaProcessos(); //Passa processos da fila de processosEsperando pra ListaGlobal, observando o tempo.	
+	void verificaChegadaProcessos(); 
 	void admiteProcesso(int pid);
 
 	bool alocaMemoria(int pid);
@@ -58,14 +60,6 @@ public:
 	void mataProcesso(int pid);
 
 	void imprimeEstado();
-
-
-
-
-
-
-
-
 
 
 
