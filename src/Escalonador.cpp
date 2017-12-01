@@ -131,7 +131,7 @@ using namespace std;
 	{
 
 		/* Quando um processo desaloca seus recursos, o escalonador vai nas filas de processos
-		bloqueados correspondentes e libera todos os processos.
+		bloqueados correspondentes e libera todos os processos, ai depois libera todos os recursos que o processo tem.
 		*/
 		if(processosRodando[pid].detemImpressora !=0){
 			desbloqueiaFilaImpressora(processosRodando[pid].detemImpressora);
