@@ -189,10 +189,9 @@ using namespace std;
 	/* Todo o funcionamento cronológico do escalonador está contido neste método */
 	void Escalonador::rodaProcessos()
 	{
-		int pidExecAnterior=pidExec;	
+		int pidExecAnterior;	
 		//laço que incrementa o tempo até que os não exista nenhum processo nem rodando nem por vir.
 		while(!processosFuturos.empty() || !processosRodando.empty()){
-			
 			if(CPU_livre) verificaChegadaProcessos();
 
 			if( CPU_livre && filasDeProcessos.existe_processo_para_executar()){
@@ -221,6 +220,7 @@ using namespace std;
 
 				if(pidExec!=pidExecAnterior)
 					std::cout<<"\n[t="<<Tempo<<"]"<< "process " << pidExec << "=>\n";
+				pidExecAnterior=pidExec;
 			}
 
 			//imprimeEstado();
