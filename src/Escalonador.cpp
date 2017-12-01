@@ -16,7 +16,10 @@ using namespace std;
 		this->CPU_livre=true;
 	}
 
-
+	/* Metodo que verifica cronologicamente se chegou um processo (baseado no tempo atual) 
+	caso tenha chegado, verifica se existe espaço na memória para o processo. se houver, coloca na fila de processos Rodando.
+	Este método também coloca um processo na lista de processos esperando por memória caso a alocação dele seja negada.
+	*/
 	void Escalonador::verificaChegadaProcessos(){
 
 		for(unsigned int i=0; i<this->processosFuturos.size(); i++){	
@@ -26,19 +29,21 @@ using namespace std;
 					processosFuturos[i].imprime_informacoes_processo();	
 					admiteProcesso(i);
 					i--;
-					
 				}
 				else{
 					std::cout<<"[t="<<Tempo<<"]"<<"dispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Não foi possível alocar memória.\n";
 
+					//se for tempo real com mais de 64 blocos, é apagado
 					if(processosFuturos[i].prioridade==0 && processosFuturos[i].blocos_em_memoria>64){
 						this->processosFuturos.erase(processosFuturos.begin() + i);
 						i--;
 					}
+					//se for de usuario com mais de 960 blocos, é apagado
 					else if(processosFuturos[i].blocos_em_memoria>960){
 						this->processosFuturos.erase(processosFuturos.begin() + i);
 						i--;
 					}
+					//aqui coloca o processo na lista de processos esperando por memoria
 					else{
 						processosEsperandoMemoria.push_back(processosFuturos[i]);
 						this->processosFuturos.erase(processosFuturos.begin() + i);
@@ -73,6 +78,9 @@ using namespace std;
 	void Escalonador::desalocaMemoria(int pid){
 		memoria.desaloca_processo(&processosRodando[pid]);
 		
+		/*quando retira um processo da memoria, devolve todos os processos esperando por memoria
+		para a fila de processos futuros, para terem sua alocação verificada novamente.
+		*/
 		for(unsigned int i=0; i<processosEsperandoMemoria.size(); ++i)
 			processosFuturos.push_back(processosEsperandoMemoria[i]);
 		processosEsperandoMemoria.clear();
@@ -85,6 +93,10 @@ using namespace std;
 	bool Escalonador::alocaRecursos(int pid)
 	{
 	
+		/*
+		Aqui a tentativa sequencial de alocação de recursos. Primeiro impressora, depois scanner e por fim modem.
+		*/
+
 		if(processosRodando[pid].requisicao_impressora != 0){
 			int impressora = processosRodando[pid].get_requisicao_impressora();
 
@@ -118,6 +130,9 @@ using namespace std;
 	void Escalonador::desalocaRecursos(int pid)
 	{
 
+		/* Quando um processo desaloca seus recursos, o escalonador vai nas filas de processos
+		bloqueados correspondentes e libera todos os processos.
+		*/
 		if(processosRodando[pid].detemImpressora !=0){
 			desbloqueiaFilaImpressora(processosRodando[pid].detemImpressora);
 		}
@@ -171,52 +186,53 @@ using namespace std;
 	}
 
 	
-
+	/* Todo o funcionamento cronológico do escalonador está contido neste método */
 	void Escalonador::rodaProcessos()
 	{
-		int pid;	
+		int pidExecAnterior=pidExec;	
+		//laço que incrementa o tempo até que os não exista nenhum processo nem rodando nem por vir.
 		while(!processosFuturos.empty() || !processosRodando.empty()){
 			
-			Escalonador::verificaChegadaProcessos();
+			verificaChegadaProcessos();
 
 			if( CPU_livre && filasDeProcessos.existe_processo_para_executar()){
 
+				//Se o cpu está livre, ele varre as filas de maior para menor a procura do proximo
+				// processo, quando encontra, coloca na CPU para rodar.
 
 				if(filasDeProcessos.existe_processo_para_executar_fila0()){
-					pid = filasDeProcessos.retira_processo_fila0();	
+					pidExec = filasDeProcessos.retira_processo_fila0();	
 					CPU_livre=false;	
 				}
 
 				else if(filasDeProcessos.existe_processo_para_executar_fila1()){
-					pid = filasDeProcessos.retira_processo_fila1();
+					pidExec = filasDeProcessos.retira_processo_fila1();
 					CPU_livre=false;
 				}
 				else if(filasDeProcessos.existe_processo_para_executar_fila2()){
-					pid = filasDeProcessos.retira_processo_fila2();
+					pidExec = filasDeProcessos.retira_processo_fila2();
 					CPU_livre=false;
 					
 				}
 				else if(filasDeProcessos.existe_processo_para_executar_fila3()){
-					pid = filasDeProcessos.retira_processo_fila3();
+					pidExec = filasDeProcessos.retira_processo_fila3();
 					CPU_livre=false;
 				}
 
-				if(pidExec!=pid)
-					std::cout<<"\n[t="<<Tempo<<"]"<< "process " << pid << "=>\n";
-				pidExec=pid;
+				if(pidExec!=pidExecAnterior)
+					std::cout<<"\n[t="<<Tempo<<"]"<< "process " << pidExecAnterior << "=>\n";
 			}
 
 			//imprimeEstado();
 			//std::cout<<"Rodando..: " << pidExec << "\n";
 			
-			
+			//Se os passos anteriores resultaram em uma CPU ocupada, chama os metodos de execução e retirada de processo da CPU
 			if(!CPU_livre){
 				executaProcessoCPU();
 				retiraProcessoCPU();
 			}	
 			
-			this->Tempo++;
-			if(Tempo>50) break;
+			this->Tempo++; // incrementa o tempo (laço cronológico)
 		}
 
 		std::cout<<"\n";
@@ -230,41 +246,45 @@ using namespace std;
 
 	void Escalonador::executaProcessoCPU(){
 
-		//Primeira Execução?
+		// verifica se é a primeira vez que o processo vai pra CPU, se for, solicita todos os recursos.
 		if(processosRodando[pidExec].get_tempo_rodando()==0){
-
-
 			if(!alocaRecursos(pidExec)){
+				/*
+					Caso os recursos não estejam disponíveis, dentro do proprio metodo alocaRecurso() o processo é colocado na 
+					fila de bloqueio correspondente. Resta a este método apenas setar a CPU como livre. 
+				*/	
 				std::cout<<"[t="<<Tempo<<"]"<<"P"<< pidExec << " Blocked\n";
-				CPU_livre=true;
-				//pidExec=0; 
+				CPU_livre=true; 
 				return;
 			}
-
 			std::cout<<"[t="<<Tempo<<"]"<<"P"<<pidExec<<" STARTED\n";
-			
 		}
 
+		//incrementa o atributo tempo_rodando do processo.
 		processosRodando[pidExec].set_tempo_rodando(processosRodando[pidExec].tempo_rodando + 1);
-		std::cout<<"[t="<<Tempo<<"]"<<"P"<<processosRodando[pidExec].get_PID()<<" instruction "<<processosRodando[pidExec].get_tempo_rodando()<< "\n";
-
-		
+		std::cout<<"[t="<<Tempo<<"]"<<"P"<<processosRodando[pidExec].get_PID()<<" instruction "<<processosRodando[pidExec].get_tempo_rodando()<< "\n";		
 
 	}
 
 	void Escalonador::retiraProcessoCPU(){
 
-		if(/*pidExec==0*/CPU_livre) return;
+		if(CPU_livre) return;
 
+		//Se o processo já terminou de rodar, mata o processo e retorna CPU livre.
 		if(processosRodando[pidExec].get_tempo_rodando()==processosRodando[pidExec].get_tempo_processador()){
 			std::cout<<"[t="<<Tempo<<"]"<<"P"<<processosRodando[pidExec].get_PID()<< " return SIGINT\n";
 			mataProcesso(processosRodando[pidExec].get_PID());
 			std::cout<<"[t="<<Tempo<<"]"<<"P"<<pidExec<<" TERMINATED\n";
-			//pidExec=0;
 			CPU_livre=true;
 			return;
 		}
 
+		/*
+			Se o processo é de usuario e não terminou de rodar, ele procura a fila correspondente para devolver o processo 
+			e depois retorna CPU livre.
+		
+			Aqui, processo de prioridade 1 se torna 2, de prioridade 2 se torna 3, e de prioridade 3 se torna 1. Isso é feito para evitar starvation
+		*/
 		if(processosRodando[pidExec].get_prioridade()!=0){
 			CPU_livre=true;
 			if(processosRodando[pidExec].get_prioridade()==1){
@@ -282,10 +302,10 @@ using namespace std;
 				processosRodando[pidExec].set_prioridade(1);
 				filasDeProcessos.insereProcesso(processosRodando[pidExec]);
 			}
-
-			//pidExec=0;
 			return;
 		}
+
+		/* Se o processo é de tempo real e não terminou, ele não libera a CPU */
 		CPU_livre = false;
 		return;
 
