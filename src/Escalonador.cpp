@@ -193,10 +193,10 @@ using namespace std;
 		//laço que incrementa o tempo até que os não exista nenhum processo nem rodando nem por vir.
 		while(!processosFuturos.empty() || !processosRodando.empty()){
 			
-			verificaChegadaProcessos();
+			if(CPU_livre) verificaChegadaProcessos();
 
 			if( CPU_livre && filasDeProcessos.existe_processo_para_executar()){
-
+				
 				//Se o cpu está livre, ele varre as filas de maior para menor a procura do proximo
 				// processo, quando encontra, coloca na CPU para rodar.
 
@@ -220,7 +220,7 @@ using namespace std;
 				}
 
 				if(pidExec!=pidExecAnterior)
-					std::cout<<"\n[t="<<Tempo<<"]"<< "process " << pidExecAnterior << "=>\n";
+					std::cout<<"\n[t="<<Tempo<<"]"<< "process " << pidExec << "=>\n";
 			}
 
 			//imprimeEstado();
