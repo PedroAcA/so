@@ -76,7 +76,7 @@
 	}
 	void LeitorEntradas::extrai_informacoes_processos(FILE* arq_processos){//ponteiro para arquivos de processo
 		char *linha_atual,*tokens;
-		int tempo_inicializacao, tempo_processador, requisicao_impressora, pid=1;
+		int tempo_inicializacao, tempo_processador, requisicao_impressora, pid=0;
 		bool requisicao_scanner,requisicao_modem;
 		Processo processo_atual;
 		while(!feof(arq_processos)){

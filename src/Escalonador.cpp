@@ -22,14 +22,14 @@ using namespace std;
 		for(unsigned int i=0; i<this->processosFuturos.size(); i++){	
 			if(this->processosFuturos[i].get_tempo_inicializacao() <= this->Tempo){
 				if(alocaMemoria(i)){
-					std::cout<<"\ndispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Alocado em memória.\n";
+					std::cout<<"[t="<<Tempo<<"]"<<"dispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Alocado em memória.\n";
 					processosFuturos[i].imprime_informacoes_processo();	
 					admiteProcesso(i);
 					i--;
 					
 				}
 				else{
-					std::cout<<"\ndispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Não foi possível alocar memória.\n";
+					std::cout<<"[t="<<Tempo<<"]"<<"dispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Não foi possível alocar memória.\n";
 
 					if(processosFuturos[i].prioridade==0 && processosFuturos[i].blocos_em_memoria>64){
 						this->processosFuturos.erase(processosFuturos.begin() + i);
@@ -202,7 +202,7 @@ using namespace std;
 				}
 
 				if(pidExec!=pid)
-					std::cout<< "\nprocess " << pid << "=>\n";
+					std::cout<<"\n[t="<<Tempo<<"]"<< "process " << pid << "=>\n";
 				pidExec=pid;
 			}
 
@@ -235,18 +235,18 @@ using namespace std;
 
 
 			if(!alocaRecursos(pidExec)){
-				std::cout<<"P"<< pidExec << " Blocked\n";
+				std::cout<<"[t="<<Tempo<<"]"<<"P"<< pidExec << " Blocked\n";
 				CPU_livre=true;
 				//pidExec=0; 
 				return;
 			}
 
-			std::cout<<"P"<<pidExec<<" STARTED\n";
+			std::cout<<"[t="<<Tempo<<"]"<<"P"<<pidExec<<" STARTED\n";
 			
 		}
 
 		processosRodando[pidExec].set_tempo_rodando(processosRodando[pidExec].tempo_rodando + 1);
-		std::cout<<"P"<<processosRodando[pidExec].get_PID()<<" instruction "<<processosRodando[pidExec].get_tempo_rodando()<< "\n";
+		std::cout<<"[t="<<Tempo<<"]"<<"P"<<processosRodando[pidExec].get_PID()<<" instruction "<<processosRodando[pidExec].get_tempo_rodando()<< "\n";
 
 		
 
@@ -257,9 +257,9 @@ using namespace std;
 		if(/*pidExec==0*/CPU_livre) return;
 
 		if(processosRodando[pidExec].get_tempo_rodando()==processosRodando[pidExec].get_tempo_processador()){
-			std::cout<<"P"<<processosRodando[pidExec].get_PID()<< " return SIGINT\n";
+			std::cout<<"[t="<<Tempo<<"]"<<"P"<<processosRodando[pidExec].get_PID()<< " return SIGINT\n";
 			mataProcesso(processosRodando[pidExec].get_PID());
-			std::cout<<"P"<<pidExec<<" TERMINATED\n";
+			std::cout<<"[t="<<Tempo<<"]"<<"P"<<pidExec<<" TERMINATED\n";
 			//pidExec=0;
 			CPU_livre=true;
 			return;
