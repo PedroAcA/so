@@ -6,131 +6,87 @@ using namespace std;
 	{
 
 	}
-	void Filas::insereProcessos(std::vector<Processo> lista_processos)
+	void Filas::insereProcesso(Processo processo)
 	{
-		int i;
-		for (i = 0; i < (int) lista_processos.size(); i++)
-		{
-			lista_processos[i].set_PID(i);
+	
+		if(processo.get_prioridade() == 0) this->Fila0.push_back(processo.get_PID());
+		if(processo.get_prioridade() == 1) this->Fila1.push_back(processo.get_PID());
+		if(processo.get_prioridade() == 2) this->Fila2.push_back(processo.get_PID());
+		if(processo.get_prioridade() == 3) this->Fila3.push_back(processo.get_PID());
+	
+	}
 
-			if(lista_processos[i].get_prioridade() == 0) this->Fila0.push_back(i);
-			if(lista_processos[i].get_prioridade() == 1) this->Fila1.push_back(i);
-			if(lista_processos[i].get_prioridade() == 2) this->Fila2.push_back(i);
-			if(lista_processos[i].get_prioridade() == 3) this->Fila3.push_back(i);
-		}
-	}
-	int Filas::existe_processo_para_executar_fila0(LeitorEntradas leitor_arquivos, int tempoCPU)
+
+	bool Filas::existe_processo_para_executar()
 	{
-		if(this->Fila0.empty()) return -1;
-		int id = 0, menor = leitor_arquivos.lista_processos[this->Fila0.front()].get_tempo_inicializacao();
-		if(tempoCPU == 0)
-		{
-			for (deque<int>::iterator it = this->Fila0.begin(); it != this->Fila0.end(); ++it)
-			{
-				if(leitor_arquivos.lista_processos[*it].get_tempo_inicializacao() < menor)
-				{
-					menor = leitor_arquivos.lista_processos[*it].get_tempo_inicializacao();
-					id = *it;
-				}
-			}
-			return id;
-		}else{
-			for (deque<int>::iterator it = this->Fila0.begin(); it != this->Fila0.end(); ++it)
-			{
-				if(leitor_arquivos.lista_processos[*it].get_tempo_inicializacao() <= tempoCPU) return *it;
-			}
-		}
-		return -1;
+		return !this->Fila0.empty() || !this->Fila1.empty() || !this->Fila2.empty() || !this->Fila3.empty() ;
 	}
-	int Filas::existe_processo_para_executar_fila1(LeitorEntradas leitor_arquivos, int tempoCPU)
+
+
+	bool Filas::existe_processo_para_executar_fila0()
 	{
-		if(this->Fila1.empty()) return -1;
-		int id = 0, menor = leitor_arquivos.lista_processos[this->Fila1.front()].get_tempo_inicializacao();
-		if(tempoCPU == 0)
-		{
-			for (deque<int>::iterator it = this->Fila1.begin(); it != this->Fila1.end(); ++it)
-			{
-				if(leitor_arquivos.lista_processos[*it].get_tempo_inicializacao() < menor)
-				{
-					menor = leitor_arquivos.lista_processos[*it].get_tempo_inicializacao();
-					id = *it;
-				}
-			}
-			return id;
-		}else{
-			for (deque<int>::iterator it = this->Fila1.begin(); it != this->Fila1.end(); ++it)
-			{
-				if(leitor_arquivos.lista_processos[*it].get_tempo_inicializacao() <= tempoCPU) return *it;
-			}
-		}
-		return -1;
+		return !this->Fila0.empty();
 	}
-	int Filas::existe_processo_para_executar_fila2(LeitorEntradas leitor_arquivos, int tempoCPU)
+
+	bool Filas::existe_processo_para_executar_fila1()
 	{
-		if(this->Fila2.empty()) return -1;
-		int id = 0, menor = leitor_arquivos.lista_processos[this->Fila2.front()].get_tempo_inicializacao();
-		if(tempoCPU == 0)
-		{
-			for (deque<int>::iterator it = this->Fila2.begin(); it != this->Fila2.end(); ++it)
-			{
-				if(leitor_arquivos.lista_processos[*it].get_tempo_inicializacao() < menor)
-				{
-					menor = leitor_arquivos.lista_processos[*it].get_tempo_inicializacao();
-					id = *it;
-				}
-			}
-			return id;
-		}else{
-			for (deque<int>::iterator it = this->Fila2.begin(); it != this->Fila2.end(); ++it)
-			{
-				if(leitor_arquivos.lista_processos[*it].get_tempo_inicializacao() <= tempoCPU) return *it;
-			}
-		}
-		return -1;
+		return !this->Fila1.empty();	
 	}
-	int Filas::existe_processo_para_executar_fila3(LeitorEntradas leitor_arquivos, int tempoCPU)
+	bool Filas::existe_processo_para_executar_fila2()
 	{
-		if(this->Fila3.empty()) return -1;
-		int id = 0, menor = leitor_arquivos.lista_processos[this->Fila3.front()].get_tempo_inicializacao();
-		if(tempoCPU == 0)
-		{
-			for (deque<int>::iterator it = this->Fila3.begin(); it != this->Fila3.end(); ++it)
-			{
-				if(leitor_arquivos.lista_processos[*it].get_tempo_inicializacao() < menor)
-				{
-					menor = leitor_arquivos.lista_processos[*it].get_tempo_inicializacao();
-					id = *it;
-				}
-			}
-			return id;
-		}else{
-			for (deque<int>::iterator it = this->Fila3.begin(); it != this->Fila3.end(); ++it)
-			{
-				if(leitor_arquivos.lista_processos[*it].get_tempo_inicializacao() <= tempoCPU) return *it;
-			}
-		}
-		return -1;
+		return !this->Fila2.empty();
 	}
-	void Filas::retira_processo_fila0(int pid)
+	
+	bool Filas::existe_processo_para_executar_fila3()
 	{
-		this->Fila0.erase(this->Fila0.begin()+pid);
+		return !this->Fila3.empty();
 	}
-	void Filas::retira_processo_fila1(int pid)
+
+	int Filas::retira_processo_fila0()
 	{
-		this->Fila1.erase(this->Fila1.begin()+pid);
+		int pid = this->Fila0.front();
+		this->Fila0.pop_front();
+		return pid;
 	}
-	void Filas::retira_processo_fila2(int pid)
+	int Filas::retira_processo_fila1()
 	{
-		this->Fila2.erase(this->Fila2.begin()+pid);
+		int pid = this->Fila1.front();
+		this->Fila1.pop_front();
+		return pid;
 	}
-	void Filas::retira_processo_fila3(int pid)
+	int Filas::retira_processo_fila2()
 	{
-		this->Fila3.erase(this->Fila3.begin()+pid);
+		int pid = this->Fila2.front();
+		this->Fila2.pop_front();
+		return pid;
 	}
-	void Filas::destroiFilas(void)
+	int Filas::retira_processo_fila3()
+	{
+		int pid = this->Fila3.front();
+		this->Fila3.pop_front();
+		return pid;
+	}
+	void Filas::destroiFilas()
 	{
 		this->Fila0.clear();
 		this->Fila1.clear();
 		this->Fila2.clear();
 		this->Fila3.clear();
+	}
+	void Filas::imprimeEstado(){
+		std::cout<<"Filas de Prioridade:\n";
+		std::cout<<"Fila 0:";
+		for(unsigned int i=0; i<Fila0.size(); ++i)
+			std::cout<<"\t"<< Fila0[i];
+		std::cout<<"\nFila 1:";
+		for(unsigned int i=0; i<Fila1.size(); ++i)
+			std::cout<<"\t"<< Fila1[i];
+		std::cout<<"\nFila 2:";
+		for(unsigned int i=0; i<Fila2.size(); ++i)
+			std::cout<<"\t"<< Fila2[i];
+		std::cout<<"\nFila 3:";
+		for(unsigned int i=0; i<Fila3.size(); ++i)
+			std::cout<<"\t"<< Fila3[i];
+		std::cout<<"\n";
+
 	}

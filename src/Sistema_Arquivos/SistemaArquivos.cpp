@@ -39,7 +39,7 @@ void SistemaArquivos::escreve_no_disco(int bloco_inicial, int num_blocos_gravado
 		this->ocupacao_memoria[i] = nome_arq;
 	}
 }
-void SistemaArquivos::executa_operacoes_sobre_arquivo(std::vector<Processo> lista_processos){
+void SistemaArquivos::executa_operacoes_sobre_arquivo(std::deque<Processo> lista_processos){
 	int indice_operacao=0;
 	printf("Sistema de arquivos =>\n");
 	while(!this->lista_operacoes_arquivo.empty()){
@@ -63,7 +63,7 @@ void SistemaArquivos::executa_operacoes_sobre_arquivo(std::vector<Processo> list
 		this->lista_operacoes_arquivo.erase(this->lista_operacoes_arquivo.begin());
 	}
 }
-void SistemaArquivos::tenta_deletar_arquivo(std::vector<Processo> lista_processos){
+void SistemaArquivos::tenta_deletar_arquivo(std::deque<Processo> lista_processos){
 	operacao_arquivo operacao_para_deletar = this->lista_operacoes_arquivo.front();
 	int pid_processo=operacao_para_deletar.get_pid();//pid do processo que quer deletar o arquivo
 	char nome_arq = operacao_para_deletar.get_nome_arquivo();//nome do arquivo a ser deletado 

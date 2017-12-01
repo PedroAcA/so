@@ -4,7 +4,8 @@
 #ifndef SISTEMA_ARQUIVOS_H //include de guarda para evitar redefinicao da classe caso ela seja incluida em mais de um cpp
 #define SISTEMA_ARQUIVOS_H
 #include <iostream>//para usar o std::cout e facilitar a impressao das informcoes na tela
-#include <vector>//para usar std::vector (estrutura que permite trabalahr como vetor, pilha ou lista)
+#include <deque>//para usar std::vector (estrutura que permite trabalahr como vetor, pilha ou lista)
+#include <vector>
 #include <stdlib.h>
 #include <stdio.h>
 #include "operacao_arquivo.hpp"//para poder criar a lista_operacoes_arquivo
@@ -38,7 +39,7 @@ class SistemaArquivos{
 	private:
 		void imprime_mensagem_sucesso_criacao_arquivo(operacao_arquivo,int);
 		void tenta_criar_arquivo();
-		void tenta_deletar_arquivo(std::vector<Processo>);
+		void tenta_deletar_arquivo(std::deque<Processo>);
 		//vai ver se o pid do processo criador do arquivo de nome nome_arq eh o msm do pid do processo que quer deletar
 		bool processo_criou_arquivo(int,char);
 		arquivo_gravado procura_arquivo_a_ser_deletado(char);
@@ -70,7 +71,7 @@ class SistemaArquivos{
 		*/
 		void adiciona_operacao_arquivo(char*);
 
-		void executa_operacoes_sobre_arquivo(std::vector<Processo>);
+		void executa_operacoes_sobre_arquivo(std::deque<Processo>);
 
 		/**
 		*	Metodo para imprimir os valores atuais das variaveis:

@@ -4,46 +4,41 @@
 //TODO: fazer metodo para calcular offset de memoria
 class Processo{
 //Inicio da definicao das variaveis do processo
-private:
-	//Inicio da definicao da estrutura contida no arquivo processes.txt
-	int PID;
-	int  tempo_inicializacao, tempo_processador;
+//private:
+public:
+	int  PID;
+	int  tempo_inicializacao, tempo_processador, tempo_rodando;
 	int  prioridade;
 	int  blocos_em_memoria;
 	int  inicio;
-	bool requisicao_impressora,requisicao_scanner,requisicao_modem;
+	int  requisicao_impressora;
+	bool requisicao_scanner,requisicao_modem;
 	int  codigo_disco;
-	//Fim da definicao da estrutura contida no arquivo processes.txt
+	int  Offset_da_memoria; 
+	int  detemImpressora;
+	bool detemScanner;
+	bool detemModem;
 
-	//Inicio da definicao de outras variaveis que devem aparecer na tela, mas nao estao no txt
-	int Offset_da_memoria;//uma variavel que pode ser calculada 
-	/*
-		Observacao: cada processo sera colocado em uma estrutura de vetor 
-		(std::vector). Logo, seu PID (ID do processo) pode ser entendido como
-		o indice atual do vetor + 1 (+ 1, pois o PID comeca em 1 ). Por esse motivo,
-		a classe processo nao possui a variavel PID
-	*/
-	//Fim da definicao de outras variaveis que devem aparecer na tela, mas nao estao no txt
-//Fim da definicao das variaveis do processo
-
-//Inicio da definicao dos metodos do processo
-
-public:
 	Processo();//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez 
 	//Inicio da declaracao dos setters
+
 	void set_PID(int);
 	void set_tempos(int,int);//tempos de inicializacao e de processador respectivamente
-	void set_requisicoes(bool,bool,bool);//requisicoes de impressora,scanner e modem respectivamente
+	void set_requisicoes(int,bool,bool);//requisicoes de impressora,scanner e modem respectivamente
 	void set_prioridade(int);
 	void set_blocos_memoria(int);
 	void set_inicio(int);
 	void set_codigo_disco(int);
+	void set_tempo_admissao(int);
+	void set_tempo_rodando(int);
 	//Fim da declaracao dos setters
 
 	//Inicio da declaracao dos getters
+	int get_PID();
+	int get_tempo_rodando();
 	int get_tempo_inicializacao();
 	int get_tempo_processador();
-	bool get_requisicao_impressora();
+	int get_requisicao_impressora();
 	bool get_requisicao_scanner();
 	bool get_requisicao_modem();
 	int get_prioridade();

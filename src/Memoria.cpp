@@ -6,6 +6,7 @@ bool memoria_ram[1024];
 bool Memoria::aloca_usuario (Processo *p, int i){
 
     //procura um espaço livre na memoria
+    
     while(i<=FIM_USUARIO && memoria_ram[i]==true)i++;
 
     //se nao houver espaço livre, retorna fracasso
@@ -35,7 +36,7 @@ void Memoria::desaloca_processo (Processo *p){
     int i;
 
     //a partir do primeiro bloco até o ultimo, seta a memoria como livre
-    for(i=p->get_inicio();i<p->get_inicio()+p->get_blocos_memoria();i++){
+    for(i=p->get_inicio();i<(p->get_inicio()+p->get_blocos_memoria());i++){
         memoria_ram[i] = false;
     }
 

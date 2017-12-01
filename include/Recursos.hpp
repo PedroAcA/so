@@ -2,6 +2,7 @@
 #define RECURSOS_H
 
 #include<iostream>
+#include"../include/Processos/Processo.hpp"
 #define OCUPADO false
 #define DISPONIVEL true
 
@@ -9,18 +10,24 @@
 class Recursos{
 
 public:
+
+	bool scanner;
+    bool impressora[2];
+    bool modem;
  
-    static void inicializaRecursos ();
-    static void imprimeStatus ();
+    void inicializaRecursos();
+    void imprimeStatus ();
 
-    static bool solicitaScanner ();
-    static void liberaScanner ();
+    bool solicitaScanner (Processo *);
+    void liberaScanner ();
 
-    static bool solicitaModem ();
-    static void liberaaModem ();
+    bool solicitaModem (Processo *);
+    void liberaModem ();
 
-    static bool solicitaImpressora (int);
-    static void liberaImpressora (int);
+    bool solicitaImpressora (Processo *);
+    void liberaImpressora (int);
+
+    void liberaRecursos(Processo *);
 
 };
 

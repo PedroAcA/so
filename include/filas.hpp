@@ -9,6 +9,7 @@
 #include "../include/LeitorEntradas.hpp"//para poder criar uma lista de processos
 class Filas{
 public:
+
 	std::deque<int> Fila0; //fila de prioridade máxima: processos de tempo real
 	//Filas destinadas aos processos de usuário:
 	std::deque<int> Fila1; //prioridade 1
@@ -20,58 +21,62 @@ public:
 	metodo que verifica a prioridade de cada processo e os separa entre as filas
 	@param : uma lista de processos
 	**/
-	void insereProcessos(std::vector<Processo> );
+	void insereProcesso(Processo );
 	/**
 	metodo que verifica de acordo com o tempo de chegada de cada processo pertencente
 	a Fila0 se existe um processo que está pronto pra ser executado
 	@param : uma lista de processos
 	@param : tempo da CPU
 	**/
-	int existe_processo_para_executar_fila0(LeitorEntradas, int);
+	bool existe_processo_para_executar();
+
+	bool existe_processo_para_executar_fila0();
 	/**
 	metodo que verifica de acordo com o tempo de chegada de cada processo pertencente
 	a Fila1 se existe um processo que está pronto pra ser executado
 	@param : uma lista de processos
 	@param : tempo da CPU
 	**/
-	int existe_processo_para_executar_fila1(LeitorEntradas, int);
+	bool existe_processo_para_executar_fila1();
 	/**
 	metodo que verifica de acordo com o tempo de chegada de cada processo pertencente
 	a Fila2 se existe um processo que está pronto pra ser executado
 	@param : uma lista de processos
 	@param : tempo da CPU
 	**/
-	int existe_processo_para_executar_fila2(LeitorEntradas, int);
+	bool existe_processo_para_executar_fila2();
 	/**
 	metodo que verifica de acordo com o tempo de chegada de cada processo pertencente
 	a Fila3 se existe um processo que está pronto pra ser executado
 	@param : uma lista de processos
 	@param : tempo da CPU
 	**/
-	int existe_processo_para_executar_fila3(LeitorEntradas, int);
+	bool existe_processo_para_executar_fila3();
 	/**
 	metodo que retira aquele processo da fila0
 	@param : o identificador de um processo PID
 	**/
-	void retira_processo_fila0(int);
+	int retira_processo_fila0();
 	/**
 	metodo que retira aquele processo da fila1
 	@param : o identificador de um processo PID
 	**/
-	void retira_processo_fila1(int);
+	int retira_processo_fila1();
 	/**
 	metodo que retira aquele processo da fila2
 	@param : o identificador de um processo PID
 	**/
-	void retira_processo_fila2(int);
+	int retira_processo_fila2();
 	/**
 	metodo que retira aquele processo da fila3
 	@param : o identificador de um processo PID
 	**/
-	void retira_processo_fila3(int);
+	int retira_processo_fila3();
 	/**
 	metodo que destroi todas as filas
 	**/
-	void destroiFilas(void);
+	void destroiFilas();
+
+	void imprimeEstado();
 };
 #endif

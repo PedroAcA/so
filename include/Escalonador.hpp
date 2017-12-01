@@ -1,7 +1,7 @@
 #ifndef ESCALONADOR_H//include de guarda
 #define ESCALONADOR_H
 #include <deque>
-#include <vector>
+#include <map>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>//para usar funcoes como strlen
@@ -9,11 +9,64 @@
 #include "../include/Filas.hpp"//para poder criar as filas de prioridade
 #include "../include/Memoria.hpp"
 #include "../include/Recursos.hpp"
+#include "../include/Processos/Processo.hpp"
+#include "../include/Sistema_Arquivos/SistemaArquivos.hpp"
+
 class Escalonador{
 public:
+	
+	std::deque<Processo> processosFuturos; 
+	std::map<int,Processo> processosRodando; 
+	std::deque<Processo> processosTerminados;
+
+	std::deque<int> bloqueadosImp1;
+	std::deque<int> bloqueadosImp2;
+	std::deque<int> bloqueadosModem;
+	std::deque<int> bloqueadosScanner;
+
+	int pidExec; 
+	bool CPU_livre;
+
+
+	Filas filasDeProcessos; 
+	Memoria memoria;
+	Recursos recursos;
+	int Tempo;
+
 	Escalonador();
-	bool alocaRecursos(LeitorEntradas,int, Recursos);
-	void desalocaRecursos(LeitorEntradas,int, Recursos);
-	void algoritmoEscalonamento(LeitorEntradas, Filas, Memoria, Recursos);
+
+	void inicializa(std::deque<Processo> listaProcessos,  Recursos recursos, Memoria memoria);
+	
+	void verificaChegadaProcessos(); //Passa processos da fila de processosEsperando pra ListaGlobal, observando o tempo.	
+	void admiteProcesso(int pid);
+
+	bool alocaMemoria(int pid);
+	void desalocaMemoria(int pid);
+
+	bool alocaRecursos(int); 
+	void desalocaRecursos(int);
+	
+	void desbloqueiaFilaScanner();
+	void desbloqueiaFilaModem();
+	void desbloqueiaFilaImpressora(int);
+	
+	
+	void rodaProcessos();
+	void executaProcessoCPU();
+	void retiraProcessoCPU();
+	void mataProcesso(int pid);
+
+	void imprimeEstado();
+
+
+
+
+
+
+
+
+
+
+
 };
 #endif

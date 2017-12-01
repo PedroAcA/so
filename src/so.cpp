@@ -19,7 +19,7 @@ http://www.cplusplus.com/reference/deque/deque/
 int main(int argc, char* argv[]){
 	LeitorEntradas leitor_entradas;
 	Recursos recursos;
-	std::vector<Processo> lista_processos;
+	std::deque<Processo> lista_processos;
 	Filas filasDeProcessos;
 	Memoria memoria;
 	SistemaArquivos disco;
@@ -43,14 +43,16 @@ int main(int argc, char* argv[]){
 
 	lista_processos = leitor_entradas.get_lista_processos();
 	disco = leitor_entradas.get_disco();
-	filasDeProcessos.insereProcessos(lista_processos);
+	//filasDeProcessos.insereProcessos(lista_processos);
 
 	memoria.inicializa_memoria();
 	recursos.inicializaRecursos();
+	escalonador.inicializa(lista_processos, recursos, memoria);
 	
-	escalonador.algoritmoEscalonamento(leitor_entradas, filasDeProcessos, memoria, recursos);
-	disco.executa_operacoes_sobre_arquivo(lista_processos);
-	disco.imprime_informacoes_disco();
+	escalonador.rodaProcessos();
+	
+	//disco.executa_operacoes_sobre_arquivo(lista_processos);
+	//disco.imprime_informacoes_disco();
 	filasDeProcessos.destroiFilas();
 
 	return 0;

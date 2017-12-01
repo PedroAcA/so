@@ -7,7 +7,7 @@
 //Versao atual ja le o arquivo files.txt
 #ifndef LEITORENTRADAS_H//include de guarda
 #define LEITORENTRADAS_H
-#include <vector>//para usar std::vector (estrutura que permite trabalahr como vetor, pilha ou lista)
+#include <deque>//para usar std::vector (estrutura que permite trabalahr como vetor, pilha ou lista)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>//para usar funcoes como strlen
@@ -17,7 +17,7 @@ class LeitorEntradas{
 //Inicio da definicao das variaveis da classe
 public://a lista de processos e informacoes do disco deverao ser publicas
 //para que outros modulos do SO possam acessar esssa informacao 
-	std::vector<Processo> lista_processos;
+	std::deque<Processo> lista_processos;
 	SistemaArquivos informacao_disco;
 //Fim da definicao das variaveis da classe
 
@@ -86,7 +86,7 @@ public:
 	**/
 	void libera_lista_processos();
 
-	std::vector<Processo> get_lista_processos();
+	std::deque<Processo> get_lista_processos();
 
 	SistemaArquivos get_disco();
 //Fim da definicao dos metodos da classe	

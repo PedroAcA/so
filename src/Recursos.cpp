@@ -1,8 +1,5 @@
 #include "../include/Recursos.hpp"
 
-	bool scanner;
-    bool impressora[2];
-    bool modem;
 
 	void Recursos::inicializaRecursos (){
     	scanner = DISPONIVEL;
@@ -34,41 +31,84 @@
 
     }
 
-    bool Recursos::solicitaScanner (){
+    bool Recursos::solicitaScanner (Processo *p){
     	if(scanner==DISPONIVEL){
     		scanner=OCUPADO;
+            p->detemScanner=true;
     		return true;
     	}
+
+        liberaRecursos(p);
     	return false;
 
     }
+
     void  Recursos::liberaScanner (){
     	scanner = DISPONIVEL;
-
     }
 
-    bool  Recursos::solicitaModem (){
+    bool  Recursos::solicitaModem (Processo *p){
     	if(modem==DISPONIVEL){
     		modem = OCUPADO;
+            p->detemModem = true;
     		return true;
     	}
+
+        liberaRecursos(p);
     	return false;
     }
     
-    void  Recursos::liberaaModem (){
+    void  Recursos::liberaModem (){
     	modem=DISPONIVEL;
     }
 
-    bool  Recursos::solicitaImpressora (int num){
-    	num--;
+    bool  Recursos::solicitaImpressora (Processo *p){
+    	int num = p->requisicao_impressora;
+
+        num--;
+        if(num!=0 && num!=1){
+            std::cout<<"Numero de impressora invalido!!\n";
+            return false;
+        }
     	if(impressora[num]==DISPONIVEL){
     		impressora[num]=OCUPADO;
+            p->detemImpressora = num+1;
     		return true;
     	}
+        liberaRecursos(p);
     	return false;
     }
     
     void  Recursos::liberaImpressora (int num){
     	num--;
+        if(num!=0 && num!=1){
+            std::cout<<"Numero de impressora invalido!!\n";
+        }
     	impressora[num]=DISPONIVEL;
     }
+
+
+    void Recursos::liberaRecursos(Processo *p){
+
+        if(p->detemScanner){
+            liberaScanner();
+            p->detemScanner=false;
+        }
+        if(p->detemModem){            
+            liberaModem();
+            p->detemModem=false;
+        }
+        if(p->detemImpressora!=0){
+            liberaImpressora(p->detemImpressora);
+            p->detemImpressora=0;
+        }
+
+    }
+
+
+
+
+
+
+
+

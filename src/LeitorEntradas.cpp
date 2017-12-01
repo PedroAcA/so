@@ -76,8 +76,8 @@
 	}
 	void LeitorEntradas::extrai_informacoes_processos(FILE* arq_processos){//ponteiro para arquivos de processo
 		char *linha_atual,*tokens;
-		int tempo_inicializacao, tempo_processador;
-		bool requisicao_impressora,requisicao_scanner,requisicao_modem;
+		int tempo_inicializacao, tempo_processador, requisicao_impressora, pid=1;
+		bool requisicao_scanner,requisicao_modem;
 		Processo processo_atual;
 		while(!feof(arq_processos)){
 			linha_atual = this->le_proxima_linha(arq_processos);
@@ -99,7 +99,7 @@
 				processo_atual.set_blocos_memoria(atoi(tokens));
 
 				tokens = this->proximo_token();
-				requisicao_impressora = (bool)atoi(tokens);//valores bool sao armazenados como 0 ou 1
+				requisicao_impressora = (int)atoi(tokens);//valores bool sao armazenados como 0 ou 1
 
 				tokens = this->proximo_token();
 				requisicao_scanner = (bool)atoi(tokens);//valores bool sao armazenados como 0 ou 1
@@ -112,6 +112,8 @@
 		
 				processo_atual.set_tempos(tempo_inicializacao,tempo_processador);
 				processo_atual.set_requisicoes(requisicao_impressora,requisicao_scanner,requisicao_modem);
+				processo_atual.set_PID(pid);
+				pid++;
 				//Fim da atribuicao dos campos do processo			
 				this->lista_processos.push_back(processo_atual);//adicionamos o processo a lista de processos no fim da lista (fim do vetor)
 			}//if(linha_atual[0]!='\0')
@@ -184,7 +186,7 @@
 		std::cout<<"Lista de aqruivos liberada!"<<std::endl;
 	}
 
-	std::vector<Processo> LeitorEntradas::get_lista_processos(){
+	std::deque<Processo> LeitorEntradas::get_lista_processos(){
 		return this->lista_processos;
 	}
 
