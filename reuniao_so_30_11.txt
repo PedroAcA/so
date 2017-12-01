@@ -1,0 +1,26 @@
+Consideracoes feitas sobre a simulacao do SO:
+	->SO é em bactch e, alem disso, magicamente conehce todos os nomes dos arquivos que serao criados e deletados (podendo nao saber o conteudo de cada arquivo). Mesmo os processos chegando em tempos diferentes, sabe-se qual o numero total de processsos a serem executados a priori. Essas conclusoes foram tiradas da especificacao e exemplo do funcionamento do programa contidos na especificacao (no qual sistema de arquivos executa independentemente da ordem de execucao de processos).
+
+	->Para o compartilhamento de recursos, sera utilizada a tecnica de evitar deadlock que consiste na enumerecao e ordenacao dos recursos. A possivel 'startvation' desse metodo nao ocorreria na simualacao pois o numero de processos é finito (nao chegam mais processos apos o arquivos processess.txt ser lido). Logo, o deadlock pode ser seguramente evitado.
+
+Observacoes:
+	-> No metodo de alocar memoria não retorna 'false' quando não consegue alocar a memoria para o determinado processo.
+	-> Fazer testes para verificar todas as possibilidades de execucao (incluindo casos que possam gerar deadlock)
+Modelo de documentacao:
+	->Minimo 2 e máximo 5 páginas
+	->Itens minimos:	
+		- Descrição das ferramentas/linguagens usadas;
+		- Descrição teórica e prática da solução dada;
+		- Descrição das principais dificuldades encontradas durante a implementação;
+		- Para todas as dificuldades encontradas, explicar as soluções usadas;
+		- Descrever o papel/função de cada aluno na realização do trabalho;
+		- Bibliografia.
+	->Incluir versoes: dos sistemas operacionais utilizados para testar/rodar o arquivos, bem como as versoes e os nomes dos editores de texto utilizados para escrever o codigo fonte
+	->Incluir visao geral dos modulos (o que cada faz) e diagrama com relacoes de todos os modulos (explicitar qual modulo pode ser feito independente dos outros)
+	->Latex
+	-> Seguinte trecho adicionado por Pedro Aurélio após a reunião (ver se os membros concordam):
+		->Formato das ferramentas poderia ser: 	nome_aluno compilou o programa utilizando g++ versão V, no sistema operacional nome_so versao V_SO e fez o código fonte utilizando o editor de texto (ou IDE se for o caso) nome_IDE na versão versao_IDE. 
+
+		Se utilizou mais de um SO para rodar, especificar os SOs utilizados
+
+	
