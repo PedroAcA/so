@@ -152,6 +152,7 @@ using namespace std;
 
 	void Escalonador::rodaProcessos()
 	{
+		int pid;	
 		while(!processosFuturos.empty() || !processosRodando.empty()){
 			
 			Escalonador::verificaChegadaProcessos();
@@ -160,27 +161,31 @@ using namespace std;
 
 
 				if(filasDeProcessos.existe_processo_para_executar_fila0()){
-					pidExec = filasDeProcessos.retira_processo_fila0();	
+					pid = filasDeProcessos.retira_processo_fila0();	
 					CPU_livre=false;	
 				}
 
 				else if(filasDeProcessos.existe_processo_para_executar_fila1()){
-					pidExec = filasDeProcessos.retira_processo_fila1();
+					pid = filasDeProcessos.retira_processo_fila1();
 					CPU_livre=false;
 				}
 				else if(filasDeProcessos.existe_processo_para_executar_fila2()){
-					pidExec = filasDeProcessos.retira_processo_fila2();
+					pid = filasDeProcessos.retira_processo_fila2();
 					CPU_livre=false;
 					
 				}
 				else if(filasDeProcessos.existe_processo_para_executar_fila3()){
-					pidExec = filasDeProcessos.retira_processo_fila3();
+					pid = filasDeProcessos.retira_processo_fila3();
 					CPU_livre=false;
 				}
+
+				if(pidExec!=pid)
+					std::cout<< "\nprocess " << pid << "=>\n";
+				pidExec=pid;
 			}
 
-			imprimeEstado();
-			std::cout<<"Rodando..: " << pidExec << "\n";
+			//imprimeEstado();
+			//std::cout<<"Rodando..: " << pidExec << "\n";
 			
 			
 			if(!CPU_livre){
@@ -201,9 +206,11 @@ using namespace std;
 		//Primeira Execução?
 		if(processosRodando[pidExec].get_tempo_rodando()==0){
 
+
 			if(!alocaRecursos(pidExec)){
+				std::cout<<"P"<< pidExec << " Blocked\n";
 				CPU_livre=true;
-				pidExec=0; 
+				//pidExec=0; 
 				return;
 			}
 
@@ -220,13 +227,13 @@ using namespace std;
 
 	void Escalonador::retiraProcessoCPU(){
 
-		if(pidExec==0) return;
+		if(/*pidExec==0*/CPU_livre) return;
 
 		if(processosRodando[pidExec].get_tempo_rodando()==processosRodando[pidExec].get_tempo_processador()){
 			std::cout<<"P"<<processosRodando[pidExec].get_PID()<< " return SIGINT\n";
 			mataProcesso(processosRodando[pidExec].get_PID());
 			std::cout<<"P"<<pidExec<<" TERMINATED\n";
-			pidExec=0;
+			//pidExec=0;
 			CPU_livre=true;
 			return;
 		}
@@ -249,7 +256,7 @@ using namespace std;
 				filasDeProcessos.insereProcesso(processosRodando[pidExec]);
 			}
 
-			pidExec=0;
+			//pidExec=0;
 			return;
 		}
 		CPU_livre = false;
