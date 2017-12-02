@@ -50,7 +50,7 @@ void SistemaArquivos::executa_operacoes_sobre_arquivo(std::deque<Processo> lista
 			//os PIDs das listas de operacoes e processos sao indices 
 			//de vetores. So faz sentido executar uma operacao no arquivo
 			//se o processo existe
-			if(this->lista_operacoes_arquivo.front().desja_criar()){
+			if(operacao_atual.desja_criar()){
 				this->tenta_criar_arquivo();
 			}else{
 				this->tenta_deletar_arquivo(lista_processos);

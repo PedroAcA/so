@@ -113,17 +113,72 @@ class SistemaArquivos{
 			processo de deletar pode ter resultados imprevistos. Se nao
 			existirem arquivos gravados no disco, o retorno do metodo 
 			pode gerar em quebra do programa
-			
+
 		**/
 		arquivo_gravado procura_arquivo_a_ser_deletado(char);
+		/**Método que obtem o bloco inicial e o total de blocos 
+		ocupados por um arquivo e deleta esse arquivo. Apoós esse
+		processo, imprime na tela uma mensagem informando que o
+		arquivo foi deletado
+
+			@param char: nome do arquivo que sera deletado
+
+			@param operacao_arquivo: objeto da classe definida em
+			operacao_arquivo. Utilizado para saber o pid do processo
+			que deletou o arquivo  
+
+		**/
 		void deleta_arquivo(char,operacao_arquivo);
-		//escreve na estrutura que simula o disco (ocupacao_memoria)
+		/**Método que escreve na estrutura que simula o disco 
+		(ocupacao_memoria), efetivamente salvando o conteudo no
+		'disco'
+		Parametros da esquerda para a direita:
+
+			@param int: bloco inicial onde se encontra o arquivo
+
+			@param int: total de blocos a serem escritos
+
+			@param char: nome do arquivo a ser escrito ou '0' para
+			arquivo ser deletado
+
+		**/
 		void escreve_no_disco(int,int,char);
+		/**Método que procura encontrar espacos adjacentes com um
+		tamanho qu e caiba o arquivo. Utiliza técnica de firs-fit
+
+			Retorna o numero do primeiro bloco que possua espacos
+			adjacentes suficientes para escrever arquivo ou -1 se
+			nao ha espaco para criar o arquivo 
+		**/
 		int busca_espacos_adjacentes();
+		/**Método que busca na lista de ocupacao_memoria se existe
+		um arquivo cujo nome foi passado como parametro de entrada
+
+			@param char: nome do arquivo
+
+			Retorna true se há pelo menos um bloco com nome de 
+			arquivo igual ao passado pela funcao ou false caso 
+			contrário 
+		**/
 		bool existe_arquivo_gravado_com_mesmo_nome(char);
+		/**Método que salva informacoes, úteis para a operação de 
+		deletar, do arquivo que esta sendo criado. Essas informacoes
+		sao:nome, pid do processo criador, numero do primeiro bloco
+		a ser gravado e quantidade de blocos ocupados pelo arquivo
+		sendo ocupado
+
+			@param operacao_arquivo: operacao de criacao do arquivo
+			atual
+
+			@param int: numero do primeiro bloco no qual o arquivo
+			foi gravado
+
+		**/
 		void salva_processo_criador_do_arquivo(operacao_arquivo,int);
 	public:
-		SistemaArquivos();//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez
+		/*construtor sem argumentos de entrada permite nao precisar
+		passar todos os argumentos da classe de uma vez*/
+		SistemaArquivos();
 		//Inicio da declaracao dos setters
 		void set_total_blocos_disco(int);
 		void set_n(int); 
@@ -131,19 +186,26 @@ class SistemaArquivos{
 
 		/**Metodo que adiciona um elemento a lista_arquivos_gravados. 
 			As informacoes a serem adicionadas estao no paramentro de entrada
-			@param char* linha lida de files.txt contendo  as informacoes de
+			@param char*: linha lida de files.txt contendo  as informacoes de
 				arquivo salvo na memoria (informacoes da linha 3 ate n+2) 
 		*/
 		void adiciona_arquivo_gravado(char*);
 
 		/**Metodo que adiciona um elemento a lista_operacoes_arquivo. 
 			As informacoes a serem adicionadas estao no paramentro de entrada
-			@param char* linha lida de files.txt contendo  as informacoes de
+			@param char*: linha lida de files.txt contendo  as informacoes de
 				operacao que um processo requisitou fazer em um aruqivo
 				(informacoes da linha n+2 ate final do arquivo) 
 		*/
 		void adiciona_operacao_arquivo(char*);
+		/**Método que percorre a lista de operacoes sobre os arquivos
+		e as executa se possível (processo que quer fazer a operacao
+		existe)
 
+			@param std::deque<Processo>: lista de processos que o 
+			sistema executou
+
+		**/
 		void executa_operacoes_sobre_arquivo(std::deque<Processo>);
 
 		/**
