@@ -6,8 +6,8 @@
 	LeitorEntradas::LeitorEntradas(){
 
 	}
-	//Na versao incial, le_arquivos so le processes.txt (TODO:implementar
-	//leitura de files.txt)
+	//Na versao inicial, le_arquivos so le processes.txt 
+	//(TODO:implementar leitura de files.txt)
 	//(DONE:implementar leitura de files.txt)
 
 /*Argumentos esperados para le_arquivos(int argc,char** argv) (os quais sao passados primeiramente para a main via terminal)

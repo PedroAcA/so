@@ -102,6 +102,9 @@ void SistemaArquivos::deleta_arquivo(char nome_arq, operacao_arquivo operacao_pa
 	printf("Sucesso\n");
 	printf("O processo %d deletou o arquivo %c\n\n",pid_processo,nome_arq );
 }
+//obs: testar criar arquivo B em um bloco de memoria, apagar arquivo B,
+//criar arquivo X no lugar e, em seguida, criar arquivo B em outro espaco de memoria
+
 //metodo tem que ser chamado apos conferir se o arquivo a ser deletado existe
 arquivo_gravado SistemaArquivos::procura_arquivo_a_ser_deletado(char nome_arq){
 	int i;
@@ -111,7 +114,7 @@ arquivo_gravado SistemaArquivos::procura_arquivo_a_ser_deletado(char nome_arq){
 		}
 	}
 	printf("Arquivo a ser deletado nao encontrado!\n");
-	return this->lista_arquivos_gravados[0];//para evitar seg faults
+	return this->lista_arquivos_gravados[0];//para evitar alguns seg faults
 }
 void SistemaArquivos::tenta_criar_arquivo(){
 	operacao_arquivo operacao_para_criar = this->lista_operacoes_arquivo.front();
