@@ -262,7 +262,8 @@ using namespace std;
 
 		//incrementa o atributo tempo_rodando do processo.
 		processosRodando[pidExec].set_tempo_rodando(processosRodando[pidExec].tempo_rodando + 1);
-		std::cout<<"P"<<processosRodando[pidExec].get_PID()<<" instruction "<<processosRodando[pidExec].get_tempo_rodando()<< "\n";		
+		std::cout<<"P"<<processosRodando[pidExec].get_PID()<<" instruction "<<processosRodando[pidExec].get_tempo_rodando()<< 
+		" (prior:"<<processosRodando[pidExec].get_prioridade()<<")\n";		
 
 	}
 
