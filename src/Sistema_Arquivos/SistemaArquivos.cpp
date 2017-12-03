@@ -1,6 +1,12 @@
 #include "../../include/Sistema_Arquivos/SistemaArquivos.hpp"
 #define livre '0'
 #define tempo_real 0 //processos de tempo real tem prioridade 0
+//TODO: testar para ver se somente processos de tempo real podem excluir
+//arquivos da linha 3 ate n+2
+//DONE: teste feito e somente processos de tempo real podem deletar
+//essses arquivos
+//TODO: testar com n= total de blocos no disco e ver mapa da ocupacao de memoria! 
+//DONE: testado com n=total de blocos no disco
 SistemaArquivos::SistemaArquivos(){//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez	
 }
 void SistemaArquivos::set_total_blocos_disco(int total_blocos){
@@ -34,8 +40,8 @@ int SistemaArquivos::get_n(){
 //escreve na estrutura que simula o disco (ocupacao_memoria)
 void SistemaArquivos::escreve_no_disco(int bloco_inicial, int num_blocos_gravados,char nome_arq){ 
 	int i;
-	//for(i=bloco_inicial;i<(bloco_inicial+num_blocos_gravados) && i<this->total_blocos_disco;i++){//possivel protecao contra usuario 
-	for(i=bloco_inicial;i<bloco_inicial+num_blocos_gravados;i++){//para debug
+	for(i=bloco_inicial;(i<(bloco_inicial+num_blocos_gravados) && i<this->total_blocos_disco);i++){//possivel protecao contra usuario 
+	//for(i=bloco_inicial;i<(bloco_inicial+num_blocos_gravados);i++){//para debug
 		this->ocupacao_memoria[i] = nome_arq;
 	}
 }
