@@ -36,9 +36,16 @@ public:
 	**/
 	void imprime_infos_operacao();
 
+	/**Método que vai indicar se a operacao é criar ou deletar
+	um arquivo 
+		
+		Retorna true se o atributo do codigo_operacao atual é para
+		criar um arquivo e false caso contrário
+	**/
+	bool desja_criar();
+
 	//Inicio da definicao dos getters
 	int get_pid();
-	bool desja_criar();//vai indiicar se a operacao eh criar arquivo
 	int get_numero_blocos();
 	char get_nome_arquivo();
 	//Fim da definicao dos getters

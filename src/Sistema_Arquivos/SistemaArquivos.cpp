@@ -1,6 +1,12 @@
 #include "../../include/Sistema_Arquivos/SistemaArquivos.hpp"
 #define livre '0'
 #define tempo_real 0 //processos de tempo real tem prioridade 0
+//TODO: testar para ver se somente processos de tempo real podem excluir
+//arquivos da linha 3 ate n+2
+//DONE: teste feito e somente processos de tempo real podem deletar
+//essses arquivos
+//TODO: testar com n= total de blocos no disco e ver mapa da ocupacao de memoria! 
+//DONE: testado com n=total de blocos no disco
 SistemaArquivos::SistemaArquivos(){//construtor sem argumentos de entrada permite nao precisar passar todos os argumentos da classe de uma vez	
 }
 void SistemaArquivos::set_total_blocos_disco(int total_blocos){
@@ -34,8 +40,8 @@ int SistemaArquivos::get_n(){
 //escreve na estrutura que simula o disco (ocupacao_memoria)
 void SistemaArquivos::escreve_no_disco(int bloco_inicial, int num_blocos_gravados,char nome_arq){ 
 	int i;
-	//for(i=bloco_inicial;i<(bloco_inicial+num_blocos_gravados) && i<this->total_blocos_disco;i++){//possivel protecao contra usuario 
-	for(i=bloco_inicial;i<bloco_inicial+num_blocos_gravados;i++){//para debug
+	for(i=bloco_inicial;(i<(bloco_inicial+num_blocos_gravados) && i<this->total_blocos_disco);i++){//possivel protecao contra usuario 
+	//for(i=bloco_inicial;i<(bloco_inicial+num_blocos_gravados);i++){//para debug
 		this->ocupacao_memoria[i] = nome_arq;
 	}
 }
@@ -50,7 +56,7 @@ void SistemaArquivos::executa_operacoes_sobre_arquivo(std::deque<Processo> lista
 			//os PIDs das listas de operacoes e processos sao indices 
 			//de vetores. So faz sentido executar uma operacao no arquivo
 			//se o processo existe
-			if(this->lista_operacoes_arquivo.front().desja_criar()){
+			if(operacao_atual.desja_criar()){
 				this->tenta_criar_arquivo();
 			}else{
 				this->tenta_deletar_arquivo(lista_processos);
@@ -94,24 +100,33 @@ bool SistemaArquivos::processo_criou_arquivo(int pid_processo, char nome_arq){
 	return false;
 }
 void SistemaArquivos::deleta_arquivo(char nome_arq, operacao_arquivo operacao_para_deletar){
-	arquivo_gravado arquivo_para_deletar = this->procura_arquivo_a_ser_deletado(nome_arq);
-	int bloco_inicial = arquivo_para_deletar.get_num_primeiro_bloco();
-	int qte_blocos=arquivo_para_deletar.get_blocos_ocupados();//informacoes de blocos do arquivo a serem deletados 
-	int pid_processo=operacao_para_deletar.get_pid();//pid do processo que quer deletar o arquivo
-	this->escreve_no_disco(bloco_inicial,qte_blocos,livre);
-	printf("Sucesso\n");
-	printf("O processo %d deletou o arquivo %c\n\n",pid_processo,nome_arq );
+	int indice_arquivo_para_deletar = this->procura_arquivo_a_ser_deletado(nome_arq);
+//usar indice para facilitar a remocao do arquivo da lista de 
+//arquivos gravados
+	if(indice_arquivo_para_deletar>=0){
+		arquivo_gravado arquivo_para_deletar = this->lista_arquivos_gravados[indice_arquivo_para_deletar];
+		int bloco_inicial = arquivo_para_deletar.get_num_primeiro_bloco();
+		int qte_blocos=arquivo_para_deletar.get_blocos_ocupados();//informacoes de blocos do arquivo a serem deletados 
+		int pid_processo=operacao_para_deletar.get_pid();//pid do processo que quer deletar o arquivo
+		this->escreve_no_disco(bloco_inicial,qte_blocos,livre);
+		this->lista_arquivos_gravados.erase(this->lista_arquivos_gravados.begin()+indice_arquivo_para_deletar);
+		printf("Sucesso\n");
+		printf("O processo %d deletou o arquivo %c\n\n",pid_processo,nome_arq );
+	}
 }
+//(TODO): testar criar arquivo B em um bloco de memoria, apagar arquivo B,
+//criar arquivo X no lugar e, em seguida, criar arquivo B em outro espaco de memoria
+//(DONE): Aruqivo criado e teste feito
 //metodo tem que ser chamado apos conferir se o arquivo a ser deletado existe
-arquivo_gravado SistemaArquivos::procura_arquivo_a_ser_deletado(char nome_arq){
+int SistemaArquivos::procura_arquivo_a_ser_deletado(char nome_arq){
 	int i;
 	for(i=0;i<(int)this->lista_arquivos_gravados.size();i++){
 		if(this->lista_arquivos_gravados[i].get_nome_arquivo() == nome_arq){
-			return this->lista_arquivos_gravados[i];
+			return i;
 		}
 	}
 	printf("Arquivo a ser deletado nao encontrado!\n");
-	return this->lista_arquivos_gravados[0];//para evitar seg faults
+	return -1;//se nao encontrou o arquivo a ser deletado na lista de arquivos gravados
 }
 void SistemaArquivos::tenta_criar_arquivo(){
 	operacao_arquivo operacao_para_criar = this->lista_operacoes_arquivo.front();
