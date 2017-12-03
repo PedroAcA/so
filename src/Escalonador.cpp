@@ -25,13 +25,13 @@ using namespace std;
 		for(unsigned int i=0; i<this->processosFuturos.size(); i++){	
 			if(this->processosFuturos[i].get_tempo_inicializacao() <= this->Tempo){
 				if(alocaMemoria(i)){
-					std::cout<<"[t="<<Tempo<<"]"<<"dispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Alocado em memória.\n";
+					std::cout<<"dispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Alocado em memória.\n";
 					processosFuturos[i].imprime_informacoes_processo();	
 					admiteProcesso(i);
 					i--;
 				}
 				else{
-					std::cout<<"[t="<<Tempo<<"]"<<"dispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Não foi possível alocar memória.\n";
+					std::cout<<"dispatcher==> Processo "<< processosFuturos[i].get_PID()<<": Não foi possível alocar memória.\n";
 
 					//se for tempo real com mais de 64 blocos, é apagado
 					if(processosFuturos[i].prioridade==0 && processosFuturos[i].blocos_em_memoria>64){
@@ -219,7 +219,7 @@ using namespace std;
 				}
 
 				if(pidExec!=pidExecAnterior)
-					std::cout<<"\n[t="<<Tempo<<"]"<< "process " << pidExec << "=>\n";
+					std::cout<< "\nprocess " << pidExec << "=>\n";
 				pidExecAnterior=pidExec;
 			}
 
@@ -253,16 +253,16 @@ using namespace std;
 					Caso os recursos não estejam disponíveis, dentro do proprio metodo alocaRecurso() o processo é colocado na 
 					fila de bloqueio correspondente. Resta a este método apenas setar a CPU como livre. 
 				*/	
-				std::cout<<"[t="<<Tempo<<"]"<<"P"<< pidExec << " Blocked\n";
+				std::cout<<"P"<< pidExec << " Blocked\n";
 				CPU_livre=true; 
 				return;
 			}
-			std::cout<<"[t="<<Tempo<<"]"<<"P"<<pidExec<<" STARTED\n";
+			std::cout<<"P"<<pidExec<<" STARTED\n";
 		}
 
 		//incrementa o atributo tempo_rodando do processo.
 		processosRodando[pidExec].set_tempo_rodando(processosRodando[pidExec].tempo_rodando + 1);
-		std::cout<<"[t="<<Tempo<<"]"<<"P"<<processosRodando[pidExec].get_PID()<<" instruction "<<processosRodando[pidExec].get_tempo_rodando()<< "\n";		
+		std::cout<<"P"<<processosRodando[pidExec].get_PID()<<" instruction "<<processosRodando[pidExec].get_tempo_rodando()<< "\n";		
 
 	}
 
@@ -272,9 +272,9 @@ using namespace std;
 
 		//Se o processo já terminou de rodar, mata o processo e retorna CPU livre.
 		if(processosRodando[pidExec].get_tempo_rodando()==processosRodando[pidExec].get_tempo_processador()){
-			std::cout<<"[t="<<Tempo<<"]"<<"P"<<processosRodando[pidExec].get_PID()<< " return SIGINT\n";
+			std::cout<<"P"<<processosRodando[pidExec].get_PID()<< " return SIGINT\n";
 			mataProcesso(processosRodando[pidExec].get_PID());
-			std::cout<<"[t="<<Tempo<<"]"<<"P"<<pidExec<<" TERMINATED\n";
+			std::cout<<"P"<<pidExec<<" TERMINATED\n\n";
 			CPU_livre=true;
 			return;
 		}
