@@ -192,7 +192,7 @@ using namespace std;
 		int pidExecAnterior;	
 		//laço que incrementa o tempo até que os não exista nenhum processo nem rodando nem por vir.
 		while(!processosFuturos.empty() || !processosRodando.empty()){
-			if(CPU_livre) verificaChegadaProcessos();
+			if(CPU_livre && (processosRodando.size()<1000)) verificaChegadaProcessos();
 
 			if( CPU_livre && filasDeProcessos.existe_processo_para_executar()){
 				
