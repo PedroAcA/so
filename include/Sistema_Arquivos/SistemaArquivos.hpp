@@ -99,23 +99,15 @@ class SistemaArquivos{
 		no disco para que ele possa ser deletado. As informacoes sao
 		encapsuladas como atributos da classe definida em 
 		"arquivo_gravado.hpp"  
-		   Tem que ser chamado apos conferir se o arquivo a ser 
-		deletado existe
 
 			@param char: nome do arquivo a ser deletado
 
-			Retorna um objeto da classe arquivo_gravado que 
-			contem as informacoes do arquivo a ser deletado cujo
-			nome foi passado como parametro de entrada para a funcao
-			Observacao: se o metodo for chamado antes de conferir 
-			que o arquivo existe, ele retorna a informacao do primeiro
-			arquivo gravado no disco.Assim, se existir esse arquivo, entao
-			processo de deletar pode ter resultados imprevistos. Se nao
-			existirem arquivos gravados no disco, o retorno do metodo 
-			pode gerar em quebra do programa
+			Retorna o indice do arquivo gravado correpondente ao nome
+			passado como parametro de entrada da funcao. Retorna -1
+			caso nao exista a correspondencia
 
 		**/
-		arquivo_gravado procura_arquivo_a_ser_deletado(char);
+		int procura_arquivo_a_ser_deletado(char);
 		/**Método que obtem o bloco inicial e o total de blocos 
 		ocupados por um arquivo e deleta esse arquivo. Apoós esse
 		processo, imprime na tela uma mensagem informando que o
