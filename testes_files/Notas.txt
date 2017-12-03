@@ -1,2 +1,6 @@
+O numero de segmentos ocupados do disco (n) tem que ser >=1
 files-> arquivo original presente na descricao do trabalho de implementacao
 files1-> pequena modificacao de files.txt na qual o arquivo K é criado no bloco 2, depois é substituido pelo arquivo J e recriado no bloco 4 e deletado novamente
+files2-> inicialmente ha somente 1 arquivo, depois ele é deletado e ha operacoes para deletar arquivos que nao existem no disco
+files3-> processo de usuario pid=2 (presente em processes1.txt) tenta deletar um arquivo que nao criou
+files4-> processo pid=20 (nao existente em processes1.txt) tenta criar arquivo A de tamanho 1 e deletar arquivo Z
