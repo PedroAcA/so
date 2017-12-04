@@ -224,7 +224,6 @@ using namespace std;
 			}
 
 			//imprimeEstado();
-			//std::cout<<"Rodando..: " << pidExec << "\n";
 			
 			//Se os passos anteriores resultaram em uma CPU ocupada, chama os metodos de execução e retirada de processo da CPU
 			if(!CPU_livre){
@@ -327,7 +326,7 @@ using namespace std;
 	void Escalonador::imprimeEstado(){
 
 		std::cout<<"\n\nTEMPO: "<< Tempo << "\n";
-		std::cout<<"\nProcessos Futuros:";
+		std::cout<<"Processos Futuros:";
 		for(unsigned int i=0; i<processosFuturos.size(); ++i)
 			std::cout<<"\t"<< processosFuturos[i].get_PID();
 		std::cout<<"\n";
@@ -360,7 +359,6 @@ using namespace std;
 		for(unsigned int i=0; i<bloqueadosModem.size(); ++i)
 			std::cout<<"\t"<< bloqueadosModem[i];
 		std::cout<<"\n";
-		
 
 
 	}
