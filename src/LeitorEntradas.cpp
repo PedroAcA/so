@@ -153,9 +153,10 @@
     	e a cada iteracao le o proximo caracter do arquivo. Se esse caracter for
     	o fim do arquivo ou '\n', ou '\r'(windows) entao encerra o laco. A cada itercao, salva o
     	caracter na string e aloca espaco para receber o proximo caracter*/
-    	for(i=0;(c!=EOF && c!='\n' && c!='\r' );i++,c=fgetc(arq) ){
+    	for(i=0;(c!=EOF && c!='\n' && c!='\r' );c=fgetc(arq) ){
        		linha[i] = c;
        		linha = (char*) realloc(linha,(i+2)*sizeof(char));
+    		i++;
     	}
         linha[i] = '\0';
 		return linha;
