@@ -299,7 +299,7 @@ using namespace std;
 
 
 			else if(processosRodando[pidExec].get_prioridade()==3){
-				processosRodando[pidExec].set_prioridade(1);
+				//processosRodando[pidExec].set_prioridade(1);
 				filasDeProcessos.insereProcesso(processosRodando[pidExec]);
 			}
 			return;

@@ -48,6 +48,7 @@ void SistemaArquivos::escreve_no_disco(int bloco_inicial, int num_blocos_gravado
 void SistemaArquivos::executa_operacoes_sobre_arquivo(std::deque<Processo> lista_processos){
 	int indice_operacao=0;
 	printf("Sistema de arquivos =>\n");
+	//this->imprime_informacoes_disco();
 	while(!this->lista_operacoes_arquivo.empty()){
 		operacao_arquivo operacao_atual = this->lista_operacoes_arquivo.front();
 		indice_operacao++;
@@ -189,10 +190,13 @@ bool SistemaArquivos::existe_arquivo_gravado_com_mesmo_nome(char nome){
 int SistemaArquivos::busca_espacos_adjacentes(){
 	int bloco_inicial,blocos_adjacentes,num_blocos_adjacentes_livres;
 	int num_blocos_para_criar = this->lista_operacoes_arquivo.front().get_numero_blocos();
-	for(	bloco_inicial=0;bloco_inicial<(this->total_blocos_disco-num_blocos_para_criar);
+	//printf("num_blocos_para_criar:%d\n",num_blocos_para_criar );
+	//printf("this->total_blocos_disco%d\n",this->total_blocos_disco );
+	for(	bloco_inicial=0;bloco_inicial<=(this->total_blocos_disco-num_blocos_para_criar);
 			bloco_inicial++ 
 		){//vai varrer os blocos do disco por janela do inicio ate a janela
 		  //chegar ao fim do disco 
+			//printf("bloco inidal:%d\n",bloco_inicial );
 			num_blocos_adjacentes_livres=0;
 			for(	blocos_adjacentes=bloco_inicial;
 					blocos_adjacentes<this->total_blocos_disco;
@@ -201,6 +205,8 @@ int SistemaArquivos::busca_espacos_adjacentes(){
 					if(num_blocos_adjacentes_livres == num_blocos_para_criar){
 						return bloco_inicial;//caso achar espaco
 					}else if(this->ocupacao_memoria[blocos_adjacentes]==livre){
+	//					printf("blocos_adjacentes%d\n",blocos_adjacentes );
+	//					printf("num_blocos_adjacentes_livres%d\n",num_blocos_adjacentes_livres );
 						num_blocos_adjacentes_livres++;
 					}else if(num_blocos_adjacentes_livres<num_blocos_para_criar){
 						//nao achou a quantidade certa de blocos adjacentes livres
@@ -209,6 +215,9 @@ int SistemaArquivos::busca_espacos_adjacentes(){
 					}
 					
 				}//for(blocos_adjacentes...)
+			if(num_blocos_adjacentes_livres == num_blocos_para_criar)
+				return bloco_inicial;
+				
 		}//for(bloco_inicial...)
 	return -1;//caso nao achar espaco
 }
