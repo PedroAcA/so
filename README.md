@@ -16,3 +16,5 @@ Estrutura do projeto:
 	-> Pasta src: pasta com os arquivos fonte (source)
 
 	-> pasta include: pasta com os arquivos de cabeçalho (headers)
+	
+University project on subject of Operational Systems 
